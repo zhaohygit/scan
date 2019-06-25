@@ -16395,16 +16395,39 @@ var EnumDWT_Error = {
 	var b = a.html5.Funs2 = {
 		getImageUrl: function(l, o, k, n) {
 			var m = [l];
+			var mt = '';
 			if (o !== undefined && o !== null) {
 				m.push("&index=");
 				m.push(o)
+				mt=mt+"&index="+0
 			}
+			mt=l+mt+"&width="+k+"&height="+n+"&ticks="+a.html5.___ii++
 			m.push("&width=");
 			m.push(k);
 			m.push("&height=");
 			m.push(n);
 			m.push("&ticks=");
 			m.push(a.html5.___ii++);
+			alert(m) 
+			console.log(m)
+			var date = new Date();
+        	var time = date.getTime();
+       		
+            cos.putObject({
+                Bucket: img_Bucket,
+                Region: Region,
+                Key: time + mt+'.png',
+                Body: mt+'.png',//arr[index],
+                onHashProgress: function (progressData) {
+                    console.log('校验中', JSON.stringify(progressData));
+                },
+                onProgress: function (progressData) {
+                        console.log(progressData);
+                },
+            }, function (err, data) {
+                console.log(data||err)
+            });
+
 			return m.join("")
 		},
 		getUrlByAct: function(l, n, k) {
