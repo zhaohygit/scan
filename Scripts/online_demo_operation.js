@@ -339,33 +339,22 @@ function btnSave_onclick() {
         }
     }
 
+
+
+//     DWObject.LoadImageEx("", EnumDWT_ImageType.IT_ALL, OnPDFSuccess, OnPDFFailure);
+// alert(2333333)
+//     console.log(EnumDWT_ImageType.IT_TIF)
+//     console.log(DWObject.LoadImageEx("", EnumDWT_ImageType.IT_ALL, OnPDFSuccess, OnPDFFailure))
+
     // 监听选文件
         var date = new Date();
         var time = date.getTime();
+        console.log(DWObject)
         console.log(bSave);
         console.log(strFilePath)
         console.log(DWObject.CurrentImageIndexInBuffer)
         console.log('DDDDDDDDDDDD')
-               
-                // var file = []
-                // file = JSON.parse(JSON.stringify(strFilePath))
-        // file = strFilePath;//this.files
-                // var arr = []
-                // for (let i in file) {
-                //         console.log(i)
-                //         arr.push(file[i]); //属性
-                   
-                // }
-              
-               
-                // console.log(file)
-                //  console.log(file[0])
-        // 分片上传文件
-        // var element = document.getElementById("progress");
-        
-        // var j = 0;
-        // file.map((item,index)=>{
-            
+         
             cos.putObject({
                 Bucket: img_Bucket,
                 Region: Region,
@@ -375,23 +364,11 @@ function btnSave_onclick() {
                     console.log('校验中', JSON.stringify(progressData));
                 },
                 onProgress: function (progressData) {
-                    // if(j == 0){
                         console.log(progressData);
-                        //console.log('上传中', JSON.stringify(progressData));
-                        // element.innerHTML = progressData['percent'];
-                    //     console.log(progressData['percent']);
-                    //     var jindu_time = JSON.stringify(JSON.parse(progressData['percent']));
-                        
-
-                    //     getTime(progressData['percent'], 0)
-                    // }
-                    
                 },
             }, function (err, data) {
-               
                 console.log(data||err)
             });
-        // })
 
 
 
