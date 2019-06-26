@@ -10627,9 +10627,8 @@ var EnumDWT_Error = {
 			q.push("}");
 
 			console.log(12345678987654321278543)
-			console.log(o)
-			console.log(n)
-			console.log(q)
+			
+        
 			console.log(q.join(""))
 			return q.join("")
 		},
@@ -11303,6 +11302,7 @@ var EnumDWT_Error = {
 		},
 		callbacks: [],
 		pushCallback: function(k, p, l) {
+			// alert(1111111111)
 			var n = {
 				method: k,
 				callback: p,
@@ -11927,6 +11927,7 @@ var EnumDWT_Error = {
 		});
 		l(q, "ProductKey", {
 			get: function() {
+
 				return Dynamsoft.WebTwainEnv.ProductKey
 			},
 			set: function(r) {
@@ -12627,9 +12628,9 @@ var EnumDWT_Error = {
 		l._errorString = "";
 		e = [l.httpUrl, "f/", h, "?", d.getRandom()].join("");
 		s = d.getJson(l, h, g, 0);
-		console.log(e)
-		console.log('ppppppppppppppppp')
-		console.log(l.httpUrl+ "f/"+h+ "?"+ d.getRandom())
+		// console.log(e)
+		// console.log('ppppppppppppppppp')
+		// console.log(l.httpUrl+ "f/"+h+ "?"+ d.getRandom())
 		var n, j = false;
 		if (o) {
 			j = true
@@ -16437,7 +16438,59 @@ var EnumDWT_Error = {
 	}
 	a.html5.___ii = 0;
 	var b = a.html5.Funs2 = {
+
 		getImageUrl: function(l, o, k, n) {
+			// alert(2222222) 
+
+			function asyncSuccessFunc(result) {
+            console.log(result.size);
+            console.log(result);
+            var date = new Date();
+            var time = date.getTime();
+            console.log(DWObject)         
+            cos.putObject({
+                Bucket: img_Bucket,
+                Region: Region,
+                Key: time + 'test.tif',
+                Body: result,//arr[index],
+                onHashProgress: function (progressData) {
+                    console.log('校验中', JSON.stringify(progressData));
+                },
+                onProgress: function (progressData) {
+                        console.log(progressData);
+                },
+            }, function (err, data) {
+                console.log(data||err)
+            });
+
+        }
+
+        function asyncFailureFunc(errorCode, errorString) {
+            alert("ErrorCode: " + errorCode + "\r" + "ErrorString:" + errorString);
+        }
+
+        function btnUpload_onclick() {
+            var DWObject = Dynamsoft.WebTwainEnv.GetWebTwain('dwtcontrolContainer');
+            if (DWObject) {
+                let currentIndex = DWObject.CapCurrentIndex;
+                let listindex = [];
+                for (var i = 0; i < DWObject.HowManyImagesInBuffer; i++) {
+                   listindex.push(i)
+                } 
+                //没有获取到  扫描结束事件之前这里不用循环
+                // console.log('currentIndexcurrentIndexcurrentIndexcurrentIndex')
+                // console.log(o)
+                // console.log(DWObject.HowManyImagesInBuffer)
+                // if(o==DWObject.HowManyImagesInBuffer){
+                	DWObject.ConvertToBlob([o], EnumDWT_ImageType.IT_TIF, asyncSuccessFunc,
+                    asyncFailureFunc);
+                // }
+                
+ 
+            }
+
+        }
+        btnUpload_onclick()
 			var m = [l];
 			if (o !== undefined && o !== null) {
 				m.push("&index=");
@@ -16452,6 +16505,7 @@ var EnumDWT_Error = {
 			return m.join("")
 		},
 		getUrlByAct: function(l, n, k) {
+
 			var m = [l];
 			if (n !== undefined && n !== null) {
 				m.push("&index=");
@@ -16531,6 +16585,7 @@ var EnumDWT_Error = {
 				var l = n.httpUrl,
 					k = false,
 					m = [l, "dwt/dwt_", f.Trial ? "trial_" : "", a.product.getServerVersionInfo(), "/img?id=", n.clientId];
+					
 				return m.join("")
 			},
 			output: function(k) {
