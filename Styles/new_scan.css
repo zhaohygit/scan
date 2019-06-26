@@ -18,6 +18,7 @@ body{
     width:1200px;
     margin: 20px auto;
     height: 85%;
+    /* overflow: hidden; */
     background:rgba(255,255,255,1);
 }
 .left_title{
@@ -44,7 +45,7 @@ body{
     color:rgba(0,0,0,1);
 }
 
-.center_wait,.center_success,.center_false{
+.center_wait,.center_success,.center_false,.scan_upload{
     margin-top: 104px;
     display: flex;
     justify-content: space-between;
@@ -80,6 +81,7 @@ body{
     height: 28px;
     position: absolute;
     right: 0;
+    z-index: 100;
     bottom: 20px;
 }
 .center_right>div:nth-child(2){
@@ -140,4 +142,146 @@ button :focus{outline:0;}
     font-family:PingFangSC-Regular;
     font-weight:400;
     color:#555555;
+}
+.backsao{
+    width:137px;
+    height:30px;
+    line-height: 30px;
+    background:rgba(66,125,248,1);
+    border-radius:4px;
+    font-size:14px;
+    font-family:PingFangSC-Regular;
+    font-weight:400;
+    color:rgba(255,255,255,1);
+    position: absolute;
+    bottom: 0;
+    right: -105px;
+}
+
+@keyframes warn {
+    0% {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    opacity: 0.0;
+    }
+    50% {
+    transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    opacity: 0.3;
+    }
+    100% {
+    transform: scale(1.4);
+    -webkit-transform: scale(1.4);
+    opacity: 0.0;
+    }
+}
+@keyframes warn1 {
+    0% {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    opacity: 0.0;
+    }
+    50% {
+    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    opacity: 0.3;
+    }
+    100% {
+    transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    opacity: 0.0;
+    }
+}
+    
+    .container {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    left: 47px;
+    top: -18px;
+    }
+    /* 保持大小不变的小圆圈 */
+    .dot {
+    position: absolute;
+    width: 178px;
+    height: 178px;
+    
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border: 1px solid #33ccff;
+    border-radius: 50%; 
+    z-index: 2;
+    }
+    /* 产生动画（向外扩散变大）的圆圈 第一个圆 */
+    .pulse {
+    position: absolute;
+    width: 178px;
+    height: 178px;
+   
+    border: 1px solid #3399ff;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    z-index: 1;
+    opacity: 0;
+    -webkit-animation: warn 1s ease-out;
+    -moz-animation: warn 1s ease-out;
+    animation: warn 1s ease-out;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    box-shadow: 1px 1px 30px #3399ff; /* 阴影效果 */
+    }
+    .pulse1 {
+        position: absolute;
+        width: 196px;
+        height: 196px;
+        margin-left: -9px;
+        margin-top:-9px; 
+        border: 1px solid #3399ff;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        z-index: 1;
+        opacity: 0;
+        -webkit-animation: warn 1s ease-out;
+        -moz-animation: warn 1s ease-out;
+        animation: warn 1s ease-out;
+        -webkit-animation-iteration-count: infinite;
+        -moz-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        box-shadow: 1px 1px 30px #3399ff; /* 阴影效果 */
+    }
+    
+.right_bot{
+    top: 220px;
+    left: 43px;
+    position: absolute;
+    width: 240px;
+    font-size:16px;
+    font-family:PingFangSC-Regular;
+    font-weight:400;
+    color:rgba(0,0,0,0.6);
+}
+
+
+.smallimg_list{
+    width: 584px;
+    
+}
+.smallimg_list>li{
+    float: left;
+    margin-right: 8px
+}
+.img_box{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+}
+.mc{
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.6);;
 }

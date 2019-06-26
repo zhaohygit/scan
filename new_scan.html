@@ -8,8 +8,43 @@
 <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
 <meta name="description" content="This online demo application (JavaScript + ASP.NET-C#) shows how to use the Dynamic Web TWAIN SDK to control any TWAIN compatible scanners in a web page." />
 <meta name="keyword" content="Dynamsoft, TWAIN, Scanners, SDK, Scanning"/>
+<link rel="stylesheet" href="Styles/swiper.css">
 <link href="Styles/style.css" type="text/css" rel="stylesheet" />
 <link href="Styles/new_scan.css" type="text/css" rel="stylesheet" />
+<style>html, body {
+        position: relative;
+        height: 100%;
+      }
+      body {
+        background: #eee;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        color:#000;
+        margin: 0;
+        padding: 0;
+      }
+      .swiper-container {
+        width: 100%;
+        height: 100%;
+      }
+      .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+  
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+      }</style>
 <script src="Scripts/common.js?t=170607"></script>
 <script>
     if (dynamsoft.onlineNavInfo.deviceType == 'pc') {
@@ -21,7 +56,7 @@
 </script>
 </head>
 <body>  
-    <div class="box">
+    <div class="box" >
         <div class="top_title">
             <img src="Images/logo.png" style="width:34px;height:34px;margin-left: 50px;margin-right: 6px;" alt="">
             <div class="left_title">
@@ -36,7 +71,7 @@
 
         <div class="content_box">
             <div class="center_t">老师好！欢迎使用试题自动批改服务</div>
-            <div class="center_wait">
+            <div class="center_wait" style="display: none;">
                 <div class="center_left">
                     <div>
                         <div style="font-size:16px;
@@ -63,7 +98,7 @@
                     <button class="button">开始自动批改</button>
                 </div>
             </div>
-            <div class="center_success">
+            <div class="center_success" style="display: none;">
                 <div class="center_left">
                     <div>
                         <div style="font-size:16px;
@@ -72,6 +107,7 @@
                         color:rgba(0,0,0,0.6);">请按以下步骤来进行</div>
                         <div style="height:250px;display:flex;align-items:center;">
                             <img src="Images/step_two.png" style="width:40px;height:152px;" alt="">
+                            
                             <div class="step_word">
                                 <span class="pass">确认已连接到可用的扫描仪，并放置好习题卷  </span>
                                 <span  class="pass" style="margin-top: 33px;">点击“开始自动批改”进行自动扫描并批改习题</span>
@@ -81,16 +117,24 @@
                     </div>
                 </div>
                 
-                <div class="center_right">
+                <div class="center_right" style="position: relative">
+                    
                     <div>
                         <img src="Images/jiqi_img.png" alt="">
                         <img class="link_true" src="Images/link_true.png" alt="">
                     </div>
+                    
                     <div>扫描仪：正在寻找附近可用的扫描仪…</div>
+                    <div class="container" style="    top: 13px;">
+                            <div class="dot"></div>
+                            <div class="pulse"></div>
+                            <div class="pulse1"></div>
+                    
+                        </div>
                     <button class="button" >开始自动批改</button>
                 </div>
             </div>
-            <div class="center_false">
+            <div class="center_false" style="display: none">
                 <div class="center_left">
                     <div>
                         <div style="font-size:16px;
@@ -108,16 +152,157 @@
                     </div>
                 </div>
                 
-                <div class="center_right">
+                <div class="center_right" style="font-size:16px;
+                font-family:PingFangSC-Regular;
+                font-weight:400;
+                color:rgba(0,0,0,0.6);position: relative">
                     <div>
                         <img src="Images/jiqi_img.png" alt="">
                         <img class="link_false" src="Images/link_false.png" alt="">
                     </div>
-                    <div>扫描仪：正在寻找附近可用的扫描仪…</div>
-                    <button class="button">开始自动批改</button>
+                    <div class="container" style="    left: 36px;">
+                            <div class="dot" style="border-color: rgba(255,59,48,1)"></div>
+                            <div class="pulse" style="border-color: rgba(255,59,48,1)"></div>
+                            <div class="pulse1" style="border-color: rgba(255,59,48,1)"></div>
+                    
+                        </div>
+                    <div style="margin-bottom: 20px;margin-top: 0;">扫描仪： 未寻找到可用的扫描仪。 </div>
+                    <div style="width: 100%;text-align:left;">请确保扫描仪处于开启状态</div>
+                    <button class="button backsao">开始自动批改</button>
                 </div>
             </div>
+
+            <div class="scan_upload" style="display: none">
+                <div class="center_left">
+                    <div>
+                        <div style="font-size:16px;
+                        font-family:PingFangSC-Regular;
+                        font-weight:400;
+                        color:rgba(0,0,0,0.6);">请按以下步骤来进行</div>
+                        <div style="height:250px;display:flex;align-items:center;">
+                            <img src="Images/step_two.png" style="width:40px;height:152px;" alt="">
+                            
+                            <div class="step_word">
+                                <span class="pass">确认已连接到可用的扫描仪，并放置好习题卷  </span>
+                                <span  class="pass" style="margin-top: 33px;">点击“开始自动批改”进行自动扫描并批改习题</span>
+                                <span  class="unpass" style="margin-top: 33px;">获取习题卷的批改结果</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="center_right" style="position: relative;right: 244px;">
+                    
+                    <div style="left: 6px;top: -25px;position: absolute">
+                        <img class="Rotation img" style="width: 166px;height: 166px;"  src="Images/loading.png" alt="">
+                    </div>
+                    <div class="container" style="    top: -67px;left: 0;">
+                            <div class="dot"></div>
+                            <div class="pulse"></div>
+                            <div class="pulse1"></div>
+                    
+                        </div>
+                    <!-- <div style="position: absolute;    width: 100px;
+                    left: 55px;
+                    top: 47px;">正在扫描…</div> -->
+                    <div style="position: absolute;    width: 100px;
+                    left: 55px;
+                    top: 47px;">正在批改…</div>
+                    <div class="right_bot" >
+                        <div>
+                            <img style="width:18px;height:18px" src="Images/success_one.png" alt="">
+                            <span>习题卷上传</span>
+                        </div>
+                        <div style="margin-left: 8px;margin-top:27px;">
+                            <img  style="width:18px;height:18px" src="Images/success_two.png" alt="">
+                            <span style="color:rgba(0,0,0,0.3);">扫描完成</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <ul class="smallimg_list">
+                    <li>
+                        <img style="width:61px;height:86px;" src="Images/juan.png" alt="">
+                    </li>
+                    <li>
+                        <img style="width:61px;height:86px;" src="Images/juan.png" alt="">
+                    </li>
+                    <li>
+                        <img style="width:61px;height:86px;" src="Images/juan.png" alt="">
+                    </li>
+                    <li>
+                        <img style="width:61px;height:86px;" src="Images/juan.png" alt="">
+                    </li>
+                    <li>
+                        <img style="width:61px;height:86px;" src="Images/juan.png" alt="">
+                    </li>
+                </ul>
+            </div>
+
+            
         </div>
     </div>
+    <div class="img_box" style="display: none;">
+        <div class="mc"></div>
+        <div style="height: 654px;display:flex;align-items:center;">
+            <div></div>
+            <div>
+                
+            </div>
+            <div></div>
+        </div>
+    </div>
+   <div style="position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: rgba(0,0,0,0.3)"> 
+        <div class="swiper-container" style="    width: 80%;
+        height: 80%;background: none;margin-top: 5%;">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img style="width:464px;height:654px;" src="Images/juan.png" alt="">
+                </div>
+                <div class="swiper-slide">
+                    <img style="width:464px;height:654px;" src="Images/juan.png" alt="">
+                </div>
+                <div class="swiper-slide">
+                    <img style="width:464px;height:654px;" src="Images/juan.png" alt="">
+                </div>
+                <div class="swiper-slide">
+                    <img style="width:464px;height:654px;" src="Images/juan.png" alt="">
+                </div>
+                <div class="swiper-slide">
+                    <img style="width:464px;height:654px;" src="Images/juan.png" alt="">
+                </div>
+                <div class="swiper-slide">
+                    <img style="width:464px;height:654px;" src="Images/juan.png" alt="">
+                </div>
+            </div>
+            <!-- Add Arrows -->
+            <div class="swiper-button-next" style="right: 25%;"></div>
+            <div class="swiper-button-prev" style="left: 25%"></div>
+        </div> 
+
+   </div>
+
+    
+        
+          <!-- Swiper JS -->
+          
 </body>     
 </html>
+<script src="Scripts/swiper.js"></script>
+        
+          <!-- Initialize Swiper -->
+          <script>
+            var swiper = new Swiper('.swiper-container', {
+              navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+              },
+            });
+          </script>
+<script src="Scripts/jquery.js"></script>
