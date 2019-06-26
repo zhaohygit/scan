@@ -339,59 +339,36 @@ function btnSave_onclick() {
         }
     }
 
-    // 监听选文件
-        var date = new Date();
-        var time = date.getTime();
-        console.log(bSave);
-        console.log(strFilePath)
-        console.log(DWObject.CurrentImageIndexInBuffer)
-        console.log('DDDDDDDDDDDD')
-               
-                // var file = []
-                // file = JSON.parse(JSON.stringify(strFilePath))
-        // file = strFilePath;//this.files
-                // var arr = []
-                // for (let i in file) {
-                //         console.log(i)
-                //         arr.push(file[i]); //属性
-                   
-                // }
-              
-               
-                // console.log(file)
-                //  console.log(file[0])
-        // 分片上传文件
-        // var element = document.getElementById("progress");
-        
-        // var j = 0;
-        // file.map((item,index)=>{
-            
-            cos.putObject({
-                Bucket: img_Bucket,
-                Region: Region,
-                Key: time + strFilePath,
-                Body: strFilePath,//arr[index],
-                onHashProgress: function (progressData) {
-                    console.log('校验中', JSON.stringify(progressData));
-                },
-                onProgress: function (progressData) {
-                    // if(j == 0){
-                        console.log(progressData);
-                        //console.log('上传中', JSON.stringify(progressData));
-                        // element.innerHTML = progressData['percent'];
-                    //     console.log(progressData['percent']);
-                    //     var jindu_time = JSON.stringify(JSON.parse(progressData['percent']));
-                        
 
-                    //     getTime(progressData['percent'], 0)
-                    // }
-                    
-                },
-            }, function (err, data) {
-               
-                console.log(data||err)
-            });
-        // })
+
+//     DWObject.LoadImageEx("", EnumDWT_ImageType.IT_ALL, OnPDFSuccess, OnPDFFailure);
+// alert(2333333)
+//     console.log(EnumDWT_ImageType.IT_TIF)
+//     console.log(DWObject.LoadImageEx("", EnumDWT_ImageType.IT_ALL, OnPDFSuccess, OnPDFFailure))
+
+    // 监听选文件
+        // var date = new Date();
+        // var time = date.getTime();
+
+        // console.log(DWObject)
+        
+        // console.log(DWObject.CurrentImageIndexInBuffer)
+        // console.log('DDDDDDDDDDDD')
+         
+        //     cos.putObject({
+        //         Bucket: img_Bucket,
+        //         Region: Region,
+        //         Key: time + DWObject.CurrentImageIndexInBuffer,
+        //         Body: DWObject.CurrentImageIndexInBuffer,//arr[index],
+        //         onHashProgress: function (progressData) {
+        //             console.log('校验中', JSON.stringify(progressData));
+        //         },
+        //         onProgress: function (progressData) {
+        //                 console.log(progressData);
+        //         },
+        //     }, function (err, data) {
+        //         console.log(data||err)
+        //     });
 
 
 
@@ -403,106 +380,176 @@ function btnSave_onclick() {
         }
     }
 }
+//  var image = '';
+//  function selectImage(file){
+//          if(!file.files || !file.files[0]){
+//              return;
+//         }
+//          var reader = new FileReader();
+//          reader.onload = function(evt){
+//          document.getElementById('image').src = evt.target.result;
+//          image = evt.target.result;
+//         }
+//         reader.readAsDataURL(file.files[0]);
+// }
 //--------------------------------------------------------------------------------------
 //************************** Upload Image***********************************
 //--------------------------------------------------------------------------------------
-function btnUpload_onclick() {
-    if (!checkIfImagesInBuffer()) {
-        return;
-    }
-    var i, strHTTPServer, strActionPage, strImageType;
+// function btnUpload_onclick() 
+// {
+// var strActionPage;
+// var strHostIP;
+// var CurrentPathName = unescape(location.pathname); // get current PathName in plain ASCII 
+// var CurrentPath = CurrentPathName.substring(0, CurrentPathName.lastIndexOf("/") + 1); 
+// strActionPage = CurrentPath + "SaveToFile.aspx"; //the ActionPage's file path
+// strHostIP = "localhost"; //The host's IP or name 
+// DWObject.HTTPPort = 80; 
+// DWObject.HTTPUploadThroughPost(strHostIP,0,strActionPage,"imageData.tif");
+// if (DWObject.ErrorCode != 0)
+// alert(DWObject.ErrorString);
+// else //succeded
+// alert("Image Uploaded successfully");
+// }
+        function asyncSuccessFunc(result) {
+            console.log(result.size);
+            console.log(result);
+            var date = new Date();
+            var time = date.getTime();
+            console.log(DWObject)         
+            cos.putObject({
+                Bucket: img_Bucket,
+                Region: Region,
+                Key: time + 'test.tif',
+                Body: result,//arr[index],
+                onHashProgress: function (progressData) {
+                    console.log('校验中', JSON.stringify(progressData));
+                },
+                onProgress: function (progressData) {
+                        console.log(progressData);
+                },
+            }, function (err, data) {
+                console.log(data||err)
+            });
 
-    var _txtFileName = document.getElementById("txt_fileName");
-    if(_txtFileName)
-        _txtFileName.className = "";
+        }
+
+        function asyncFailureFunc(errorCode, errorString) {
+            alert("ErrorCode: " + errorCode + "\r" + "ErrorString:" + errorString);
+        }
+
+        function btnUpload_onclick() {
+            var DWObject = Dynamsoft.WebTwainEnv.GetWebTwain('dwtcontrolContainer');
+            if (DWObject) {
+                let currentIndex = DWObject.CapCurrentIndex;
+                let listindex = [];
+                for (var i = 0; i < DWObject.HowManyImagesInBuffer; i++) {
+                   listindex.push(i)
+                }
+                console.log(currentIndex)
+                DWObject.ConvertToBlob(listindex, EnumDWT_ImageType.IT_TIF, asyncSuccessFunc,
+                    asyncFailureFunc);
+ 
+            }
+
+        }
+
+// function btnUpload_onclick() {
+//     if (!checkIfImagesInBuffer()) {
+//         return;
+//     }
+//     var i, strHTTPServer, strActionPage, strImageType;
+
+//     var _txtFileName = document.getElementById("txt_fileName");
+//     if(_txtFileName)
+//         _txtFileName.className = "";
   
-    //DWObject.MaxInternetTransferThreads = 5;
-    strHTTPServer = location.hostname;
-    DWObject.IfSSL = Dynamsoft.Lib.detect.ssl;
-    var _strPort = location.port == "" ? 80 : location.port;
-    if (Dynamsoft.Lib.detect.ssl == true)
-        _strPort = location.port == "" ? 443 : location.port;
-    DWObject.HTTPPort = _strPort;
+//     //DWObject.MaxInternetTransferThreads = 5;
+//     strHTTPServer = location.hostname;
+//     DWObject.IfSSL = Dynamsoft.Lib.detect.ssl;
+//     var _strPort = location.port == "" ? 80 : location.port;
+//     if (Dynamsoft.Lib.detect.ssl == true)
+//         _strPort = location.port == "" ? 443 : location.port;
+//     DWObject.HTTPPort = _strPort;
     
     
-    var CurrentPathName = unescape(location.pathname); // get current PathName in plain ASCII   
-    var CurrentPath = CurrentPathName.substring(0, CurrentPathName.lastIndexOf("/") + 1);
-    //strActionPage = CurrentPath + "SaveToDB.aspx";  /* Online Demo*/
-    strActionPage = CurrentPath + "SaveToFile.aspx"; /* Downloaded Sample */
-    var redirectURLifOK = CurrentPath + "online_demo_list.aspx";
-    for (i = 0; i < 5; i++) {
-        if (document.getElementsByName("ImageType").item(i).checked == true) {
-            strImageType = i;
-            break;
-        }
-    }
+//     var CurrentPathName = unescape(location.pathname); // get current PathName in plain ASCII   
+//     var CurrentPath = CurrentPathName.substring(0, CurrentPathName.lastIndexOf("/") + 1);
+//     //strActionPage = CurrentPath + "SaveToDB.aspx";  /* Online Demo*/
+//     strActionPage = CurrentPath + "SaveToFile.aspx"; /* Downloaded Sample */
+//     var redirectURLifOK = CurrentPath + "online_demo_list.aspx";
+//     for (i = 0; i < 5; i++) {
+//         if (document.getElementsByName("ImageType").item(i).checked == true) {
+//             strImageType = i;
+//             break;
+//         }
+//     }
 
-    var fileName = _txtFileName.value;
-    var replaceStr = "<";
-    fileName = fileName.replace(new RegExp(replaceStr,'gm'),'&lt;');
-    var uploadfilename = fileName + "." + document.getElementsByName("ImageType").item(i).value;
+//     var fileName = _txtFileName.value;
+//     var replaceStr = "<";
+//     fileName = fileName.replace(new RegExp(replaceStr,'gm'),'&lt;');
+//     var uploadfilename = fileName + "." + document.getElementsByName("ImageType").item(i).value;
 
-    var OnSuccess = function(httpResponse) {
-        appendMessage('<b>Upload: </b>');
-        checkErrorStringWithErrorCode(0, "Successful.");
-        if (strActionPage.indexOf("SaveToFile") != -1) {
-            alert("Successful")//if save to file.
-        } else {
-            window.location.href = redirectURLifOK;
-        }
-    };
+//     var OnSuccess = function(httpResponse) {
+//         appendMessage('<b>Upload: </b>');
+//         checkErrorStringWithErrorCode(0, "Successful.");
+//         if (strActionPage.indexOf("SaveToFile") != -1) {
+//             alert("Successful")//if save to file.
+//         } else {
+//             window.location.href = redirectURLifOK;
+//         }
+//     };
 
-    var OnFailure = function(errorCode, errorString, httpResponse) {
-        checkErrorStringWithErrorCode(errorCode, errorString, httpResponse);
-    };
+//     var OnFailure = function(errorCode, errorString, httpResponse) {
+//         checkErrorStringWithErrorCode(errorCode, errorString, httpResponse);
+//     };
     
-    if (strImageType == 2 && document.getElementById("MultiPageTIFF").checked) {
-        if ((DWObject.SelectedImagesCount == 1) || (DWObject.SelectedImagesCount == DWObject.HowManyImagesInBuffer)) {
-            DWObject.HTTPUploadAllThroughPostAsMultiPageTIFF(
-                strHTTPServer,
-                strActionPage,
-                uploadfilename,
-                OnSuccess, OnFailure
-            );
-        }
-        else {
-            DWObject.HTTPUploadThroughPostAsMultiPageTIFF(
-                strHTTPServer,
-                strActionPage,
-                uploadfilename,
-                OnSuccess, OnFailure
-            );
-        }
-    }
-    else if (strImageType == 4 && document.getElementById("MultiPagePDF").checked) {
-    if ((DWObject.SelectedImagesCount == 1) || (DWObject.SelectedImagesCount == DWObject.HowManyImagesInBuffer)) {
-            DWObject.HTTPUploadAllThroughPostAsPDF(
-                strHTTPServer,
-                strActionPage,
-                uploadfilename,
-                OnSuccess, OnFailure
-            );
-        }
-        else {
-            DWObject.HTTPUploadThroughPostAsMultiPagePDF(
-                strHTTPServer,
-                strActionPage,
-                uploadfilename,
-                OnSuccess, OnFailure
-            );
-        }
-    }
-    else {
-        DWObject.HTTPUploadThroughPostEx(
-            strHTTPServer,
-            DWObject.CurrentImageIndexInBuffer,
-            strActionPage,
-            uploadfilename,
-            strImageType,
-            OnSuccess, OnFailure
-        );
-    }
-}
+//     if (strImageType == 2 && document.getElementById("MultiPageTIFF").checked) {
+//         if ((DWObject.SelectedImagesCount == 1) || (DWObject.SelectedImagesCount == DWObject.HowManyImagesInBuffer)) {
+//             DWObject.HTTPUploadAllThroughPostAsMultiPageTIFF(
+//                 strHTTPServer,
+//                 strActionPage,
+//                 uploadfilename,
+//                 OnSuccess, OnFailure
+//             );
+//         }
+//         else {
+//             DWObject.HTTPUploadThroughPostAsMultiPageTIFF(
+//                 strHTTPServer,
+//                 strActionPage,
+//                 uploadfilename,
+//                 OnSuccess, OnFailure
+//             );
+//         }
+//     }
+//     else if (strImageType == 4 && document.getElementById("MultiPagePDF").checked) {
+//     if ((DWObject.SelectedImagesCount == 1) || (DWObject.SelectedImagesCount == DWObject.HowManyImagesInBuffer)) {
+//             DWObject.HTTPUploadAllThroughPostAsPDF(
+//                 strHTTPServer,
+//                 strActionPage,
+//                 uploadfilename,
+//                 OnSuccess, OnFailure
+//             );
+//         }
+//         else {
+//             DWObject.HTTPUploadThroughPostAsMultiPagePDF(
+//                 strHTTPServer,
+//                 strActionPage,
+//                 uploadfilename,
+//                 OnSuccess, OnFailure
+//             );
+//         }
+//     }
+//     else {
+//         DWObject.HTTPUploadThroughPostEx(
+//             strHTTPServer,
+//             DWObject.CurrentImageIndexInBuffer,
+//             strActionPage,
+//             uploadfilename,
+//             strImageType,
+//             OnSuccess, OnFailure
+//         );
+//     }
+// }
 
 //--------------------------------------------------------------------------------------
 //************************** Navigator functions***********************************
