@@ -14,7 +14,7 @@ body{
     align-items: center;
     background:rgba(46,50,86,1);
 }
-.content_box{
+.content_box,.content_box1{
     width:1200px;
     margin: 20px auto;
     height: 85%;

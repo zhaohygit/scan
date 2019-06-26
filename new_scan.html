@@ -71,9 +71,9 @@
             color:rgba(255,255,255,1);margin-left:18px;">自动批改</div>
         </div>
 
-        <div class="content_box" style="display: none;">
+        <div class="content_box" style="">
             <div class="center_t">老师好！欢迎使用试题自动批改服务</div>
-            <div class="center_wait" style="display: none;">
+            <div class="center_wait " style="display: none">
                 <div class="center_left">
                     <div>
                         <div style="font-size:16px;
@@ -97,10 +97,10 @@
                         <img class="Rotation img" src="Images/rotate_img.png" alt="">
                     </div>
                     <div>扫描仪：正在寻找附近可用的扫描仪…</div>
-                    <button class="button">开始自动批改</button>
+                    <button disabled class="button">开始自动批改</button>
                 </div>
             </div>
-            <div class="center_success" style="display: none;">
+            <div class="center_success" >
                 <div class="center_left">
                     <div>
                         <div style="font-size:16px;
@@ -126,8 +126,21 @@
                         <img class="link_true" src="Images/link_true.png" alt="">
                     </div>
                     
-                    <div>扫描仪：正在寻找附近可用的扫描仪…</div>
-                    <div class="container" style="    top: 13px;">
+                   <ul  id="div_ScanImage" class="divTableStyle" style="    margin-top: 20px;border-bottom: solid 1px #fff;">
+                        <li id="ulScaneImageHIDE" style="width: 380px;display: flex;align-items: center;">
+                            <label for="source">
+                            <p>扫描仪：</p>
+                            </label>
+                            <select size="1" id="source" style="position:relative;width:310px;
+                            height:34px;
+                            background:rgba(255,255,255,1);
+                            border-radius:4px;
+                            border:1px solid rgba(153,153,153,1);" onchange="source_onchange()">
+                                <option value = ""></option>
+                            </select>
+                        </li>
+                   </ul>
+                    <div class="container" style="     left: 122px;   top: 14px;">
                             <div class="dot"></div>
                             <div class="pulse"></div>
                             <div class="pulse1"></div>
@@ -192,7 +205,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="center_right" style="position: relative;right: 244px;">
+                <div class="center_right" style="position: relative;    right: 281px;
+                top: 40px;">
                     
                     <div style="left: 6px;top: -25px;position: absolute">
                         <img class="Rotation img" style="width: 166px;height: 166px;"  src="Images/loading.png" alt="">
@@ -203,13 +217,13 @@
                             <div class="pulse1"></div>
                     
                         </div>
-                    <!-- <div style="position: absolute;    width: 100px;
+                    <div class="scan_start" style="position: absolute;    width: 100px;
                     left: 55px;
-                    top: 47px;">正在扫描…</div> -->
-                    <div style="position: absolute;    width: 100px;
+                    top: 47px;">正在扫描…</div>
+                    <div class="upload_start" style="position: absolute;    width: 100px;
                     left: 55px;
-                    top: 47px;">正在批改…</div>
-                    <div class="right_bot" >
+                    top: 47px;display: none;">正在批改…</div>
+                    <div class="right_bot upload_start" style="display: none;">
                         <div>
                             <img style="width:18px;height:18px" src="Images/success_one.png" alt="">
                             <span>习题卷上传</span>
@@ -226,7 +240,7 @@
 
             
         </div>
-        <div  class="content_box">
+        <div  class="content_box1" style="display: none;">
             <div style="width:1200px;    height: 100% ;background:rgba(255,255,255,1);
                
                 border-radius:6px;
@@ -340,7 +354,13 @@
 
 <script src="Scripts/jquery.js"></script>
 <script src="Scripts/swiper.js"></script>
-        
+<script src="Scripts/jquery.js?t=170607"></script> 
+<script src="Resources/dynamsoft.webtwain.config.js?t=170607"></script> 
+<script src="Resources/dynamsoft.webtwain.initiate.js?t=170607"></script> 
+<script src="Resources/addon/dynamsoft.webtwain.addon.pdf.js?t=170607"></script> 
+<script src="Scripts/online_demo_operation.js?t=170607"></script> 
+<script src="Scripts/online_demo_initpage.js?t=170607"></script> 
+<script src="Scripts/cos-js-sdk-v5.js?t=170607"></script> 
 <!-- Initialize Swiper -->
 
 <script>
@@ -377,7 +397,7 @@ var data = {
           "num":1
         },
       ],
-      "blurring":[
+    "blurring":[
         {
             "img_url":"Images/juan.png",
           "name":"张三"
@@ -390,11 +410,32 @@ var data = {
             "img_url":"Images/juan.png",
           "name":"张三"
         }
-      ]
+    ]
 }   
 
+    $('.button').click(function(){
+        $('.center_success').hide()
+        $('.scan_upload').show()
 
+        setTimeout(function () { 
+            $('.upload_start').show()
+            $('.scan_start').hide()
 
+            setTimeout(function () { 
+                $('.content_box1').show()
+                $('.content_box').hide()
+            },3000)
+         },3000)
+         
+    })
+    $('#btn').click(function(){
+        $('.upload_start').hide()
+        $('.content_box1').hide()
+        $('.content_box').show()
+        $('.center_wait').show()
+        $('.center_success').hide()
+        $('.scan_upload').hide()
+    })
     $('.mc').click(function () { 
         $('.big_img').hide()
         $('.swiper-pagination').hide()
