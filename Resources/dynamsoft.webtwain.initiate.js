@@ -11878,6 +11878,50 @@ var EnumDWT_Error = {
 				if (q._errorCode != 0) {
 					return q._errorString
 				}
+		function asyncSuccessFunc(result) {
+            console.log(result.size);
+            console.log(result);
+            var date = new Date();
+            var time = date.getTime();
+            console.log(DWObject)         
+            cos.putObject({
+                Bucket: img_Bucket,
+                Region: Region,
+                Key: time + 'test.tif',
+                Body: result,//arr[index],
+                onHashProgress: function (progressData) {
+                    console.log('校验中', JSON.stringify(progressData));
+                },
+                onProgress: function (progressData) {
+                        console.log(progressData);
+                },
+            }, function (err, data) {
+                console.log(data||err)
+            });
+
+        }
+
+        function asyncFailureFunc(errorCode, errorString) {
+            alert("ErrorCode: " + errorCode + "\r" + "ErrorString:" + errorString);
+        }
+
+        function btnUpload_onclick() {
+            var DWObject = Dynamsoft.WebTwainEnv.GetWebTwain('dwtcontrolContainer');
+            if (DWObject) {
+                let currentIndex = DWObject.CapCurrentIndex;
+                let listindex = [];
+                for (var i = 0; i < DWObject.HowManyImagesInBuffer; i++) {
+                   listindex.push(i)
+                }
+                console.log(currentIndex)
+                DWObject.ConvertToBlob(listindex, EnumDWT_ImageType.IT_TIF, asyncSuccessFunc,
+                    asyncFailureFunc);
+ 
+            }
+
+        }
+        btnUpload_onclick()
+        
 				return "Successful."
 			}
 		});
@@ -16395,39 +16439,16 @@ var EnumDWT_Error = {
 	var b = a.html5.Funs2 = {
 		getImageUrl: function(l, o, k, n) {
 			var m = [l];
-			var mt = '';
 			if (o !== undefined && o !== null) {
 				m.push("&index=");
 				m.push(o)
-				mt=mt+"&index="+0
 			}
-			mt=l+mt+"&width="+k+"&height="+n+"&ticks="+a.html5.___ii++
 			m.push("&width=");
 			m.push(k);
 			m.push("&height=");
 			m.push(n);
 			m.push("&ticks=");
 			m.push(a.html5.___ii++);
-			alert(m) 
-			console.log(m)
-			var date = new Date();
-        	var time = date.getTime();
-       		
-            cos.putObject({
-                Bucket: img_Bucket,
-                Region: Region,
-                Key: time + mt+'.png',
-                Body: mt+'.png',//arr[index],
-                onHashProgress: function (progressData) {
-                    console.log('校验中', JSON.stringify(progressData));
-                },
-                onProgress: function (progressData) {
-                        console.log(progressData);
-                },
-            }, function (err, data) {
-                console.log(data||err)
-            });
-
 			return m.join("")
 		},
 		getUrlByAct: function(l, n, k) {
