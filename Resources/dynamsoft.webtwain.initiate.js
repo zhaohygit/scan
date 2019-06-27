@@ -8,6 +8,7 @@
  * Author: Dynamsoft Support Team
  * Version: 14.3.1
  */
+
 var Dynamsoft = Dynamsoft || {
 		Lib: {}
 	},
@@ -16466,7 +16467,16 @@ var EnumDWT_Error = {
                 console.log(data||err)
                 if(data.statusCode == 200){
                 	if(imgUrls.length ==listindex.length ){
-                		
+						var url = 'http://192.144.175.183:8098/' + '/paper/save_pictures' 
+						var xhr = new XMLHttpRequest();
+						xhr.open('POST', url, true);
+						var img = imgUrls.join(',')
+						var data = "picUrls="+img+"&type=2"; 
+          				xhr.send(data);
+						xhr.onload = function (e) {
+							console.log(e)
+							
+						};
                 	}
                 }
             });
