@@ -61,12 +61,30 @@ function mediaType_onchange() {
         }
     }
 }
+//重新赋值
+// function Dynamsoft_OnReady() {
+    
 
-
+//     DWObject = Dynamsoft.WebTwainEnv.GetWebTwain('dwtcontrolContainer');
+//     if (DWObject) {
+//          var count = DWObject.SourceCount;
+//          for (var i = 0; i < count; i++){
+//              if(DWObject.GetSourceNameItems(i).indexOf("WIA")==-1){ //most WIA scanner source name starts with 'WIA'
+//              DWObject.IfUseTwainDSM = true;
+//              document.getElementById("source").options.add(new Option(DWObject.GetSourceNameItems(i), i));
+//          }
+//        }
+//     }
+// }
+//  Dynamsoft_OnReady();
 /*-----------------Acquire Image---------------------*/
 
 function acquireImage()
 {
+    // alert('aaaaaaaa')
+    //如果 为false则是单面
+    // alert(DWObject.IfDuplexEnabled)
+    // IfUseTwainDSM = true;
     var cIndex = document.getElementById("source").selectedIndex;
     if (cIndex < 0)
         return;
@@ -102,7 +120,8 @@ function acquireImage()
     }
     
     var bDuplexChecked = document.getElementById("Duplex").checked;
-    DWObject.IfDuplexEnabled = true;//bDuplexChecked;
+    // DWObject.IfDuplexEnabled = true;//bDuplexChecked;
+    
     if(bDuplexChecked == true && DWObject.ErrorCode != 0)
     {
         appendMessage('<b>Error setting Duplex value: </b>');

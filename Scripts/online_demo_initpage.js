@@ -271,6 +271,9 @@ function Dynamsoft_OnReady() {
     var liNoScanner = document.getElementById("pNoScanner");
     // If the ErrorCode is 0, it means everything is fine for the control. It is fully loaded.
     DWObject = Dynamsoft.WebTwainEnv.GetWebTwain('dwtcontrolContainer');  
+    //使用户检测不到wai的扫描仪，只能检测到twain驱动的
+    DWObject.IfUseTwainDSM = true;
+
     if (DWObject) {
         if (DWObject.ErrorCode == 0) {
             $('#DWTNonInstallContainerID').hide();
