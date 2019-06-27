@@ -16467,7 +16467,7 @@ var EnumDWT_Error = {
                 console.log(data||err)
                 if(data.statusCode == 200){
                 	if(imgUrls.length ==listindex.length ){
-						var url = 'http://192.144.175.183:8098/' + '/paper/save_pictures' 
+						var url = 'http://192.144.175.183:8098' + '/paper/save_pictures' 
 						var xhr = new XMLHttpRequest();
 						xhr.open('POST', url, true);
 						var img = imgUrls.join(',')
