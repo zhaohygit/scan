@@ -349,7 +349,10 @@
           
 </body>     
 </html>
-
+<script>
+    window['bDWTOnlineDemo'] = true;
+</script> 
+    
 <script src="Scripts/jquery.js"></script>
 <script src="Scripts/swiper.js"></script>
 <script src="Scripts/jquery.js?t=170607"></script> 
@@ -501,6 +504,7 @@ var data = {
     var time = setInterval(function(){
         number = number+1
         console.log(number)
+        
         console.log(document.getElementById("btnScan").disabled)
         if(!document.getElementById("btnScan").disabled){
             $('.center_wait').hide()
