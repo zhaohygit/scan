@@ -81,7 +81,7 @@ select#Resolution { margin-left: 3px; width: 192px; height: 26px; }
 #divProductDetail li label { display: inline-block; margin: 0 28px 0 0; font-size: 12px; }
 #divProductDetail li label:last-child { margin: 0; }
 #divProductDetail li label input { width: 15px; height: 15px; vertical-align: middle; }
-#btnScan { margin-top: 10px; margin-bottom: 5px; width: 90px; height: 30px; line-height: 28px; border: none; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; background: #ddd; font-size: 14px; color: #444; font-family: OpenSans-Semibold, Arial, sans-serif, Verdana, Helvetica; cursor: default; outline: none; }
+#btnScan { font-family: OpenSans-Semibold, Arial, sans-serif, Verdana, Helvetica; cursor: default; outline: none; }
 #div_LoadLocalImage input[type='button'] { margin: 15px 0; width: 90px; height: 30px; }
 #div_ScanImage { position: relative; }
 #tblLoadImage { position: absolute; top: 102px; z-index: 1; padding: 30px 22px; width: 275px; height: 128px; font-size: 14px; line-height: 30px; text-align: left; border: 1px solid #fe8e14; background-color: #f5f5f5; }

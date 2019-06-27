@@ -85,6 +85,10 @@ function acquireImage()
     //如果 为false则是单面
     // alert(DWObject.IfDuplexEnabled)
     // IfUseTwainDSM = true;
+    console.log('开始扫描')
+    document.getElementById('scan_upload').style.display='flex'
+    document.getElementById('center_success').style.display='none'
+    
     var cIndex = document.getElementById("source").selectedIndex;
     if (cIndex < 0)
         return;
