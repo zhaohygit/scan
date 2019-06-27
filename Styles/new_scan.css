@@ -1,0 +1,287 @@
+body{
+    margin:0;
+    padding:0;
+}
+.box{
+    width: 100%;
+    height:100%;
+    background:rgba(242,244,246,1);
+}
+.top_title{
+    width:100%;
+    height:70px;
+    display: flex;
+    align-items: center;
+    background:rgba(46,50,86,1);
+}
+.content_box,.content_box1{
+    width:1200px;
+    margin: 20px auto;
+    height: 85%;
+    /* overflow: hidden; */
+    background:rgba(255,255,255,1);
+}
+.left_title{
+    display: flex;
+    flex-direction: column;
+    font-size:12px;
+    font-family:PingFangSC-Medium;
+    font-weight:500;
+    color:rgba(255,255,255,1);
+    line-height: normal;
+    padding-right: 17px;
+    border-right: 1px solid rgba(255,255,255,.3);
+}
+.left_title>span:nth-child(2){
+    color:rgba(255,255,255,.7);
+}
+
+.center_t{
+    padding:44px ;
+    text-align: center;
+    font-size:24px;
+    font-family:PingFangSC-Regular;
+    font-weight:400;
+    color:rgba(0,0,0,1);
+}
+
+.center_wait,.center_success,.center_false,.scan_upload{
+    margin-top: 104px;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 68px;
+    margin-right: 227px;
+}
+.center_right{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.center_right>div:nth-child(1){
+    position: relative;
+    width: 208px;
+    height:208px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.center_right>div:nth-child(1)>img:nth-child(1){
+    width: 115px;
+    height: 113px;;
+}
+.Rotation{
+    width: 208px;
+    height:208px;
+    position: absolute;
+    left:0;
+    top:0;
+}
+.link_true,.link_false{
+    width: 73px;
+    height: 28px;
+    position: absolute;
+    right: 0;
+    z-index: 100;
+    bottom: 20px;
+}
+.center_right>div:nth-child(2){
+    margin-top: 36px;
+    margin-bottom: 53px;
+    font-size:16px;
+    font-family:PingFangSC-Regular;
+    font-weight:400;
+    color:rgba(0,0,0,0.6);
+}
+.button{
+    width:200px;
+    height:50px;
+    font-size:18px;
+    font-family:PingFangSC-Medium;
+    font-weight:500;
+    color:rgba(255,255,255,1);
+    background:rgba(66,125,248,1);
+    border-radius:6px;
+    border: none;
+    outline: none;
+}
+.button[disabled]{
+    
+    background:rgba(0,0,0,0.2);
+    border-radius:6px;
+}
+button :focus{outline:0;} 
+
+@-webkit-keyframes rotation{
+    from {-webkit-transform: rotate(0deg);}
+    to {-webkit-transform: rotate(360deg);}
+}
+
+.Rotation{
+    -webkit-transform: rotate(360deg);
+    animation: rotation 5s linear infinite;
+    -moz-animation: rotation 5s linear infinite;
+    -webkit-animation: rotation 5s linear infinite;
+    -o-animation: rotation 5s linear infinite;
+}
+.step_word{
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    width: 282px;
+    height: 180px;
+    padding-top: 22px;
+}
+.pass{
+    font-size:14px;
+    font-family:PingFangSC-Regular;
+    font-weight:400;
+    color:rgba(0,0,0,1);
+}
+.unpass{
+    font-size:14px;
+    font-family:PingFangSC-Regular;
+    font-weight:400;
+    color:#555555;
+}
+.backsao{
+    width:137px;
+    height:30px;
+    line-height: 30px;
+    background:rgba(66,125,248,1);
+    border-radius:4px;
+    font-size:14px;
+    font-family:PingFangSC-Regular;
+    font-weight:400;
+    color:rgba(255,255,255,1);
+    position: absolute;
+    bottom: 0;
+    right: -105px;
+}
+
+@keyframes warn {
+    0% {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    opacity: 0.0;
+    }
+    50% {
+    transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    opacity: 0.3;
+    }
+    100% {
+    transform: scale(1.4);
+    -webkit-transform: scale(1.4);
+    opacity: 0.0;
+    }
+}
+@keyframes warn1 {
+    0% {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    opacity: 0.0;
+    }
+    50% {
+    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    opacity: 0.3;
+    }
+    100% {
+    transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    opacity: 0.0;
+    }
+}
+    
+    .container {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    left: 47px;
+    top: -18px;
+    }
+    /* 保持大小不变的小圆圈 */
+    .dot {
+    position: absolute;
+    width: 178px;
+    height: 178px;
+    
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border: 1px solid #33ccff;
+    border-radius: 50%; 
+    z-index: 2;
+    }
+    /* 产生动画（向外扩散变大）的圆圈 第一个圆 */
+    .pulse {
+    position: absolute;
+    width: 178px;
+    height: 178px;
+   
+    border: 1px solid #3399ff;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    z-index: 1;
+    opacity: 0;
+    -webkit-animation: warn 1s ease-out;
+    -moz-animation: warn 1s ease-out;
+    animation: warn 1s ease-out;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    box-shadow: 1px 1px 30px #3399ff; /* 阴影效果 */
+    }
+    .pulse1 {
+        position: absolute;
+        width: 196px;
+        height: 196px;
+        margin-left: -9px;
+        margin-top:-9px; 
+        border: 1px solid #3399ff;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        z-index: 1;
+        opacity: 0;
+        -webkit-animation: warn 1s ease-out;
+        -moz-animation: warn 1s ease-out;
+        animation: warn 1s ease-out;
+        -webkit-animation-iteration-count: infinite;
+        -moz-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        box-shadow: 1px 1px 30px #3399ff; /* 阴影效果 */
+    }
+    
+.right_bot{
+    top: 220px;
+    left: 43px;
+    position: absolute;
+    width: 240px;
+    font-size:16px;
+    font-family:PingFangSC-Regular;
+    font-weight:400;
+    color:rgba(0,0,0,0.6);
+}
+
+
+.smallimg_list{
+    width: 584px;
+    
+}
+.smallimg_list>li{
+    float: left;
+    margin-right: 8px
+}
+.img_box{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+}
+.mc{
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.6);;
+}
