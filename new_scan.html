@@ -71,7 +71,7 @@
             color:rgba(255,255,255,1);margin-left:18px;">自动批改</div>
         </div>
 
-        <div class="content_box" style="">
+        <div class="content_box" id="content_box" style="">
             <div class="center_t">老师好！欢迎使用试题自动批改服务</div>
             <div class="center_wait" id="center_wait" >
                 <div class="center_left">
@@ -189,7 +189,7 @@
                 </div>
             </div>
 
-            <div class="scan_upload" style="display: none">
+            <div class="scan_upload" id="scan_upload" style="display: none">
                 <div class="center_left">
                     <div>
                         <div style="font-size:16px;
@@ -219,13 +219,13 @@
                             <div class="pulse1"></div>
                     
                         </div>
-                    <div class="scan_start" style="position: absolute;    width: 100px;
+                    <div class="scan_start" id="scan_start" style="position: absolute;    width: 100px;
                     left: 55px;
                     top: 47px;">正在扫描…</div>
-                    <div class="upload_start" style="position: absolute;    width: 100px;
+                    <div class="upload_start" id="upload_start" style="position: absolute;    width: 100px;
                     left: 55px;
                     top: 47px;display: none;">正在批改…</div>
-                    <div class="right_bot upload_start" style="display: none;">
+                    <div class="right_bot upload_start" id="upload_start" style="display: none;">
                         <div>
                             <img style="width:18px;height:18px" src="Images/success_one.png" alt="">
                             <span>习题卷上传</span>
@@ -237,12 +237,8 @@
                     </div>
                 </div>
             </div>
-
-           
-
-            
         </div>
-        <div  class="content_box1" style="display: none;">
+        <div  class="content_box1" id="content_box1" style="display: none;">
             <div style="width:1200px;    height: 100% ;background:rgba(255,255,255,1);
                
                 border-radius:6px;
@@ -416,21 +412,21 @@ var data = {
     ]
 }   
 
-    $('.button').click(function(){
-        $('.center_success').hide()
-        $('.scan_upload').show()
+    // $('.button').click(function(){
+    //     $('.center_success').hide()
+    //     $('.scan_upload').show()
 
-        setTimeout(function () { 
-            $('.upload_start').show()
-            $('.scan_start').hide()
+    //     setTimeout(function () { 
+    //         $('.upload_start').show()
+    //         $('.scan_start').hide()
 
-            setTimeout(function () { 
-                $('.content_box1').show()
-                $('.content_box').hide()
-            },3000)
-         },3000)
+    //         setTimeout(function () { 
+    //             $('.content_box1').show()
+    //             $('.content_box').hide()
+    //         },3000)
+    //      },3000)
          
-    })
+    // })
     $('#btn').click(function(){
         $('.upload_start').hide()
         $('.content_box1').hide()

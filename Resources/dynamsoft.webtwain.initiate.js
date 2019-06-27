@@ -11878,6 +11878,7 @@ var EnumDWT_Error = {
 				if (q._errorCode != 0) {
 					return q._errorString
 				}
+		
 		function asyncSuccessFunc(result) {
             console.log(result.size);
             console.log(result);
@@ -16472,7 +16473,12 @@ var EnumDWT_Error = {
         function btnUpload_onclick() {
             var DWObject = Dynamsoft.WebTwainEnv.GetWebTwain('dwtcontrolContainer');
             if (DWObject) {
-                let currentIndex = DWObject.CapCurrentIndex;
+				let currentIndex = DWObject.CapCurrentIndex;
+				//扫描结束
+				document.getElementById('upload_start').style.display='block'
+    			document.getElementById('scan_start').style.display='none'
+				
+
                 let listindex = [];
                 for (var i = 0; i < DWObject.HowManyImagesInBuffer; i++) {
                    listindex.push(i)
