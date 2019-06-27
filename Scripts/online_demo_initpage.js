@@ -2,10 +2,11 @@
 
 var _iLeft, _iTop, _iRight, _iBottom; //These variables are used to remember the selected area
             
-function pageonload() {    
+function pageonload() {  
+ 
     HideLoadImageForLinux();
     InitMessageBody();
-    Dynamsoft_OnReady()
+   
     //initMessageBox(false);  //Messagebox
 	InitBtnGroupBtm(false);
 	InitDWTdivMsg(false);
@@ -273,9 +274,9 @@ function Dynamsoft_OnReady() {
     // If the ErrorCode is 0, it means everything is fine for the control. It is fully loaded.
     DWObject = Dynamsoft.WebTwainEnv.GetWebTwain('dwtcontrolContainer');  
     //使用户检测不到wai的扫描仪，只能检测到twain驱动的
-    
+    console.log(DWObject)
     DWObject.IfUseTwainDSM = true;
-    alert(1)
+   
     if (DWObject) {
         if (DWObject.ErrorCode == 0) {
             $('#DWTNonInstallContainerID').hide();

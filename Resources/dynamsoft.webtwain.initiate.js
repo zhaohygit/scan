@@ -16476,6 +16476,7 @@ var EnumDWT_Error = {
 				let currentIndex = DWObject.CapCurrentIndex;
 				//扫描结束
 				document.getElementById('upload_start').style.display='block'
+				document.getElementById('upload_start1').style.display='block'
     			document.getElementById('scan_start').style.display='none'
 				
 
@@ -20409,6 +20410,7 @@ var EnumDWT_Error = {
 			if (a.isFunction(H.OnWebTwainReady)) {
 				H.OnWebTwainReady()
 			} else {
+
 				if (a.isFunction(J.Dynamsoft_OnReady)) {
 					J.Dynamsoft_OnReady()
 				}
