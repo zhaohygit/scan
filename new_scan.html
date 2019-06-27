@@ -73,7 +73,7 @@
 
         <div class="content_box" style="">
             <div class="center_t">老师好！欢迎使用试题自动批改服务</div>
-            <div class="center_wait " style="display: none">
+            <div class="center_wait " >
                 <div class="center_left">
                     <div>
                         <div style="font-size:16px;
@@ -100,7 +100,7 @@
                     <button disabled class="button">开始自动批改</button>
                 </div>
             </div>
-            <div class="center_success" >
+            <div class="center_success" style="display: none">
                 <div class="center_left">
                     <div>
                         <div style="font-size:16px;
@@ -136,7 +136,8 @@
                             background:rgba(255,255,255,1);
                             border-radius:4px;
                             border:1px solid rgba(153,153,153,1);" onchange="source_onchange()">
-                                <option value = ""></option>
+                            
+
                             </select>
                         </li>
                    </ul>
@@ -176,14 +177,14 @@
                         <img class="link_false" src="Images/link_false.png" alt="">
                     </div>
                     <div class="container" style="    left: 36px;">
-                            <div class="dot" style="border-color: rgba(255,59,48,1)"></div>
-                            <div class="pulse" style="border-color: rgba(255,59,48,1)"></div>
-                            <div class="pulse1" style="border-color: rgba(255,59,48,1)"></div>
+                            <div class="dot" style="border-color: rgba(255,59,48,1);   "></div>
+                            <div class="pulse" style="border-color: rgba(255,59,48,1);box-shadow: 1px 1px 30px rgba(255,59,48,1)"></div>
+                            <div class="pulse1" style="border-color: rgba(255,59,48,1);box-shadow: 1px 1px 30px rgba(255,59,48,1)"></div>
                     
                         </div>
-                    <div style="margin-bottom: 20px;margin-top: 0;">扫描仪： 未寻找到可用的扫描仪。 </div>
+                    <div style="margin-bottom: 20px;margin-top: 30px;">扫描仪： 未寻找到可用的扫描仪。 </div>
                     <div style="width: 100%;text-align:left;">请确保扫描仪处于开启状态</div>
-                    <button class="button backsao">开始自动批改</button>
+                    <button class="button1 backsao">重新寻找扫描仪</button>
                 </div>
             </div>
 
@@ -364,6 +365,7 @@
 <!-- Initialize Swiper -->
 
 <script>
+
 var data = {
     "course": [
       {
@@ -431,10 +433,26 @@ var data = {
     $('#btn').click(function(){
         $('.upload_start').hide()
         $('.content_box1').hide()
-        $('.content_box').show()
+        $('.content_box').show()    
         $('.center_wait').show()
         $('.center_success').hide()
         $('.scan_upload').hide()
+        $('.center_false').hide()
+        number =0
+        var time = setInterval(function(){
+            number = number+1
+            console.log(number)
+            if($('#source').children().length>0){
+                $('.center_wait').hide()
+                $('.center_success').show()
+                clearInterval(time)
+            }else if(number==15){
+                $('.center_wait').hide()
+                $('.center_false').show()
+                clearInterval(time)
+            
+            }
+        },1000)
     })
     $('.mc').click(function () { 
         $('.big_img').hide()
@@ -496,6 +514,42 @@ var data = {
         $('.swiper-pagination').show()
     }
 
+    var number = 0
+    var time = setInterval(function(){
+        number = number+1
+        
+        if($('#source').children().length>0){
+            console.log('走了额一遍')
+            $('.center_wait').hide()
+            $('.center_success').show()
+            clearInterval(time)
+        }else if(number==15){
+            $('.center_wait').hide()
+            $('.center_false').show()
+            clearInterval(time)
+        
+        }
+    },1000)
+
+    $('.backsao').click(function(){
+        $('.center_wait').show()
+        $('.center_false').hide()
+        number =0
+        var time = setInterval(function(){
+            number = number+1
+            console.log(number)
+            if($('#source').children().length>0){
+                $('.center_wait').hide()
+                $('.center_success').show()
+                clearInterval(time)
+            }else if(number==15){
+                $('.center_wait').hide()
+                $('.center_false').show()
+                clearInterval(time)
+            
+            }
+        },1000)
+    })
     var swiper = new Swiper('.swiper-container', {
         initialSlide:0,
         pagination: {
