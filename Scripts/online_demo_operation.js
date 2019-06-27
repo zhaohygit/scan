@@ -93,7 +93,8 @@ function acquireImage()
     DWObject.CloseSource();
     DWObject.OpenSource();
     DWObject.IfShowUI = document.getElementById("ShowUI").checked;
-
+    //使用双面还是单面扫描
+    DWObject.IfDuplexEnabled = false;
     var i;
     for (i = 0; i < 3; i++) {
         if (document.getElementsByName("PixelType").item(i).checked == true)
