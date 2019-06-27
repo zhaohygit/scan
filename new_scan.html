@@ -73,7 +73,7 @@
 
         <div class="content_box" id="content_box" style="">
             <div class="center_t">老师好！欢迎使用试题自动批改服务</div>
-            <div class="center_wait" id="center_wait" >
+            <div class="center_wait" id="center_wait" style="display: none">
                 <div class="center_left">
                     <div>
                         <div style="font-size:16px;
@@ -100,7 +100,7 @@
                     <input  class="button" disabled="disabled" type="button" value="开始自动批改" onclick ="acquireImage();"/>
                 </div>
             </div>
-            <div id="center_success" class="center_success" style="display: none">
+            <div id="center_success" class="center_success" >
                 <div class="center_left">
                     <div>
                         <div style="font-size:16px;
@@ -141,14 +141,35 @@
                             </select>
                         </li>
                    </ul>
+                   <div id="div_ScanImage" class="divTableStyle">
+                        <ul id="ulScaneImageHIDE" >
+                            <li>
+                                <label for="source">
+                                <p>Select Source:</p>
+                                </label>
+                                <select size="1" id="source" style="position:relative;" onchange="source_onchange()">
+                                    <option value = ""></option>
+                                </select>
+                            </li>
+                            <li style="display:none;" id="pNoScanner"> <a href="javascript: void(0)" class="ShowtblLoadImage" style="color:#fe8e14" id="aNoScanner">(No TWAIN compatible drivers detected)</a></li>
+                            <li id="divProductDetail"></li>
+                            <li class="tc">
+                                <input id="btnScan" disabled="disabled" type="button" value="Scan" onclick ="acquireImage();"/>
+                            </li>
+                        </ul>
+                        <div id="tblLoadImage" style="visibility:hidden;"> <a href="javascript: void(0)" class="ClosetblLoadImage"><img src="Images/icon-ClosetblLoadImage.png" alt="Close tblLoadImage"/></a>
+                            <p>You can Install a Virtual Scanner:</p>
+                            <p><a id="samplesource32bit" href="https://download.dynamsoft.com/tool/twainds.win32.installer.2.1.3.msi">32-bit Sample Source</a> <a id="samplesource64bit" style="display:none;" href="https://download.dynamsoft.com/tool/twainds.win64.installer.2.1.3.msi">64-bit Sample Source</a> from <a target="_blank" href="http://www.twain.org">TWG</a></p>
+                        </div>
+                    </div>
                     <div class="container" style="     left: 122px;   top: 14px;">
                             <div class="dot"></div>
                             <div class="pulse"></div>
                             <div class="pulse1"></div>
                     
                         </div>
-                    
-                    <input id="btnScan" class="button" disabled="disabled" type="button" value="开始自动批改" onclick ="acquireImage();"/>
+                        
+                        <input id="btnScan" class="button" disabled="disabled" type="button" value="开始自动批改" onclick ="acquireImage();"/>
                 </div>
             </div>
             <div class="center_false" style="display: none">
@@ -503,8 +524,6 @@ var data = {
     var number = 0
     var time = setInterval(function(){
         number = number+1
-        console.log(number)
-        
         console.log(document.getElementById("btnScan").disabled)
         if(!document.getElementById("btnScan").disabled){
             $('.center_wait').hide()
