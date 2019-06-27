@@ -16442,12 +16442,14 @@ var EnumDWT_Error = {
 
 		getImageUrl: function(l, o, k, n) {
 			// alert(2222222) 
-
-			function asyncSuccessFunc(result) {
+		var imgUrls = []
+		 let listindex = [];
+		function asyncSuccessFunc(result) {
             console.log(result.size);
             console.log(result);
             var date = new Date();
             var time = date.getTime();
+            imgUrls.push(time + 'test.tif')
             console.log(DWObject)         
             cos.putObject({
                 Bucket: img_Bucket,
@@ -16462,6 +16464,11 @@ var EnumDWT_Error = {
                 },
             }, function (err, data) {
                 console.log(data||err)
+                if(data.statusCode == 200){
+                	if(imgUrls.length ==listindex.length ){
+                		
+                	}
+                }
             });
 
         }
@@ -16480,7 +16487,7 @@ var EnumDWT_Error = {
     			document.getElementById('scan_start').style.display='none'
 				
 
-                let listindex = [];
+               
                 for (var i = 0; i < DWObject.HowManyImagesInBuffer; i++) {
                    listindex.push(i)
                 } 
