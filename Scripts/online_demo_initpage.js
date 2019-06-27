@@ -327,8 +327,11 @@ function Dynamsoft_OnReady() {
             {
                 if (vCount == 0)
                     document.getElementById("btnScan").disabled = true;
+
                 else {
+                    
                     document.getElementById("btnScan").disabled = false;
+
                     document.getElementById("btnScan").style.color = "#fff";
 					document.getElementById("btnScan").style.backgroundColor = "#50a8e1";
 					document.getElementById("btnScan").style.cursor = "pointer";

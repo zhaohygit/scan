@@ -73,7 +73,7 @@
 
         <div class="content_box" style="">
             <div class="center_t">老师好！欢迎使用试题自动批改服务</div>
-            <div class="center_wait " >
+            <div class="center_wait" id="center_wait" >
                 <div class="center_left">
                     <div>
                         <div style="font-size:16px;
@@ -97,10 +97,10 @@
                         <img class="Rotation img" src="Images/rotate_img.png" alt="">
                     </div>
                     <div>扫描仪：正在寻找附近可用的扫描仪…</div>
-                    <button disabled class="button">开始自动批改</button>
+                    <input  class="button" disabled="disabled" type="button" value="开始自动批改" onclick ="acquireImage();"/>
                 </div>
             </div>
-            <div class="center_success" style="display: none">
+            <div id="center_success" class="center_success" style="display: none">
                 <div class="center_left">
                     <div>
                         <div style="font-size:16px;
@@ -136,7 +136,7 @@
                             background:rgba(255,255,255,1);
                             border-radius:4px;
                             border:1px solid rgba(153,153,153,1);" onchange="source_onchange()">
-                            
+                                
 
                             </select>
                         </li>
@@ -147,7 +147,8 @@
                             <div class="pulse1"></div>
                     
                         </div>
-                    <button class="button" >开始自动批改</button>
+                    
+                    <input id="btnScan" class="button" disabled="disabled" type="button" value="开始自动批改" onclick ="acquireImage();"/>
                 </div>
             </div>
             <div class="center_false" style="display: none">
@@ -438,21 +439,7 @@ var data = {
         $('.center_success').hide()
         $('.scan_upload').hide()
         $('.center_false').hide()
-        number =0
-        var time = setInterval(function(){
-            number = number+1
-            console.log(number)
-            if($('#source').children().length>0){
-                $('.center_wait').hide()
-                $('.center_success').show()
-                clearInterval(time)
-            }else if(number==15){
-                $('.center_wait').hide()
-                $('.center_false').show()
-                clearInterval(time)
-            
-            }
-        },1000)
+        
     })
     $('.mc').click(function () { 
         $('.big_img').hide()
@@ -517,38 +504,45 @@ var data = {
     var number = 0
     var time = setInterval(function(){
         number = number+1
-        
-        if($('#source').children().length>0){
-            console.log('走了额一遍')
-            $('.center_wait').hide()
-            $('.center_success').show()
+        console.log(number)
+        if(number == 15){
+            console.log(document.getElementById("btnScan").disabled)
+            if(!document.getElementById("btnScan").disabled){
+                $('.center_wait').hide()
+                $('.center_success').show()
+                
+               
+            }else{
+                $('.center_wait').hide()
+                $('.center_false').show()
+            }
             clearInterval(time)
-        }else if(number==15){
-            $('.center_wait').hide()
-            $('.center_false').show()
-            clearInterval(time)
-        
         }
+        
     },1000)
 
     $('.backsao').click(function(){
         $('.center_wait').show()
         $('.center_false').hide()
-        number =0
+        number = 0
         var time = setInterval(function(){
-            number = number+1
-            console.log(number)
-            if($('#source').children().length>0){
+        number = number+1
+        console.log(number)
+        if(number == 15){
+            console.log(document.getElementById("btnScan").disabled)
+            if(!document.getElementById("btnScan").disabled){
                 $('.center_wait').hide()
                 $('.center_success').show()
-                clearInterval(time)
-            }else if(number==15){
+                
+               
+            }else{
                 $('.center_wait').hide()
                 $('.center_false').show()
-                clearInterval(time)
-            
             }
-        },1000)
+            clearInterval(time)
+        }
+        
+    },1000)
     })
     var swiper = new Swiper('.swiper-container', {
         initialSlide:0,
