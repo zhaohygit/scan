@@ -16434,16 +16434,18 @@ var EnumDWT_Error = {
 		return a
 	}
 })(Dynamsoft.Lib);
+
 (function(a, d) {
 	if (!a.product.bChromeEdition) {
 		return
 	}
+	var imgUrls = []
 	a.html5.___ii = 0;
 	var b = a.html5.Funs2 = {
 
 		getImageUrl: function(l, o, k, n) {
 			// alert(2222222) 
-		var imgUrls = []
+		
 		 let listindex = [];
 		function asyncSuccessFunc(result) {
             console.log(result.size);
@@ -16456,7 +16458,7 @@ var EnumDWT_Error = {
                 Bucket: img_Bucket,
                 Region: Region,
                 Key: time + 'test.tif',
-                Body: result,//arr[index],
+                Body: result,//arr[index], 
                 onHashProgress: function (progressData) {
                     console.log('校验中', JSON.stringify(progressData));
                 },
@@ -16465,18 +16467,35 @@ var EnumDWT_Error = {
                 },
             }, function (err, data) {
                 console.log(data||err)
+                console.log(listindex)
                 if(data.statusCode == 200){
                 	if(imgUrls.length ==listindex.length ){
-						var url = 'http://192.144.175.183:8098' + '/paper/save_pictures' 
-						var xhr = new XMLHttpRequest();
-						xhr.open('POST', url, true);
-						var img = imgUrls.join(',')
-						var data = "picUrls="+img+"&type=2"; 
-          				xhr.send(data);
-						xhr.onload = function (e) {
-							console.log(e)
+                		var img = imgUrls.join(',')
+                		console.log(img)
+						var url = 'http://192.144.175.183:8098/paper/save_pictures'
+						
+						$.ajax({
+							url:url,
+							type:'POST',
+
+							data:{
+								'picUrls':img,
+								'type':2
+							},
+							success:function(e){
+								console.log(e)
+							}
+						})
+						// var xhr = new XMLHttpRequest();
+						// xhr.open('POST', url, true);
+						
+						
+          				
+						// xhr.onload = function (e) {
+						// 	console.log(e)
 							
-						};
+						// };
+						// xhr.send();
                 	}
                 }
             });
