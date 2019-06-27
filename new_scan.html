@@ -501,8 +501,14 @@ var data = {
     var time = setInterval(function(){
         number = number+1
         console.log(number)
+        console.log(document.getElementById("btnScan").disabled)
+        if(!document.getElementById("btnScan").disabled){
+            $('.center_wait').hide()
+            $('.center_success').show()
+            clearInterval(time)
+        }
         if(number == 15){
-            console.log(document.getElementById("btnScan").disabled)
+            
             if(!document.getElementById("btnScan").disabled){
                 $('.center_wait').hide()
                 $('.center_success').show()
