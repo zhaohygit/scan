@@ -16559,7 +16559,7 @@ var EnumDWT_Error = {
             console.log(result);
             var date = new Date();
             var time = date.getTime();
-            imgUrls.push(time + 'test.tif')
+            
             console.log(DWObject)         
             cos.putObject({
                 Bucket: img_Bucket,
@@ -16572,29 +16572,69 @@ var EnumDWT_Error = {
                 onProgress: function (progressData) {
                         console.log(progressData);
                 },
-            }, function (err, data) {
+            },function (err, data) {
                 console.log(data||err)
-                console.log(listindex)
+
                 if(data.statusCode == 200){
-                	if(imgUrls.length ==listindex.length ){
-                		var img = imgUrls.join(',')
-                		console.log(img)
-						var url = 'http://192.144.175.183:8098/paper/save_pictures'
+
+                	var url = 'http://192.144.175.183:8098/paper/save_pictures'
 						
-						$.ajax({
-							url:url,
-							type:'POST',
+					$.ajax({
+						url:url,
+						type:'POST',
+						data:{
+							'picUrls': time + 'test.tif',
+							'type':2
+						},
+						success:function(e){
+							console.log(e)
+							//扫描结束
+							if(e.code == 0){
+								document.getElementById('upload_start').style.display='block'
+								document.getElementById('upload_start1').style.display='block'
+								document.getElementById('scan_start').style.display='none'
 
-							data:{
-								'picUrls':img,
-								'type':2
-							},
-							success:function(e){
-								console.log(e)
+								var time = setInterval(function () { 
+									
+									$.ajax({
+										url:'http://192.144.175.183:8098/paper/result',
+										type:'GET',
+										data:{
+											exe_id:e.data.exception
+										},
+										success:function(e){
+											if(e.data.status == 1){
+												clearInterval(time)
+												document.getElementById('content_box').style.display="none"
+												document.getElementById('content_box1').style.display="block"
+
+												for (var i = 0; i < e.data.suc_student_list.length; i++) {
+													var trTD = "<div>" + e.data.suc_student_list[i] + "</div>";
+													$("#tb").append(trTD);
+												}
+												document.getElementById('unscanstu_num').innerText=e.data.un_recognized_student_info_vos.length
+												document.getElementById('unscanjuan_num').innerText=e.data.un_clear_page_vos.length
+												document.getElementById('success_num').innerText=e.data.suc_student_list.length
+												e.data.un_recognized_student_info_vos.map((item,index)=>{
+													var trTD = "<div onclick='show_bigimg("+index+")'><img src=" + item.pic_url + "><div>" + item.student_name +  "<div></div>";
+													$("#blurring").append(trTD);
+												})
+												
+												e.data.un_clear_page_vos.map((item,index)=>{
+													var trTD = "<div onclick='show_bigimg1("+index+")'><img src=" + item.pic_url + "><div>第" + item.page_num +  "页<div></div>";
+													$("#unrecognized").append(trTD);
+												})
+
+												document.getElementById("all_student_num").innerText = e.data.all_student_num;
+												document.getElementById("question_nums").innerText = e.data.question_nums;
+											}
+										}
+									})
+								},1000)
 							}
-						})
-
-                	}
+							
+						}
+					})
                 }
             });
 
