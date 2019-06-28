@@ -15967,13 +15967,33 @@ var EnumDWT_Error = {
 					$.ajax({
 						url:url,
 						type:'POST',
-						headers: { 'Content-Type': 'application/json' },
 						data:{
 							'picUrls': time + 'test.tif',
 							'type':2
 						},
 						success:function(e){
 							console.log(e)
+							//扫描结束
+							document.getElementById('upload_start').style.display='block'
+							document.getElementById('upload_start1').style.display='block'
+							document.getElementById('scan_start').style.display='none'
+
+							setInterval(function () { 
+								
+								$.ajax({
+									url:'http://192.144.175.183:8098/paper/result',
+									type:'GET',
+									data:{
+										exe_id:e.data.exception
+									},
+									success:function(e){
+										if(e.data.status == 1){
+											document.getElementById('content_box').style.display="none"
+											document.getElementById('content_box1').style.display="block"
+										}
+									}
+								})
+							},1000)
 						}
 					})
                 }

@@ -162,7 +162,9 @@
                                         </select>
                                     </li>
                                     <li style="display:none;" id="pNoScanner"> <a href="javascript: void(0)" class="ShowtblLoadImage" style="color:#fe8e14" id="aNoScanner">(No TWAIN compatible drivers detected)</a></li>
-                                    <li id="divProductDetail"></li>
+                                    <li id="divProductDetail">
+                                        
+                                    </li>
                                     <li class="tc">
                                         <!-- <input id="btnScan" disabled="disabled" type="button" value="Scan" onclick ="acquireImage();"/> -->
                                     </li>
@@ -486,13 +488,7 @@ var data = {
 
     
     $('#btn').click(function(){
-        $('.upload_start').hide()
-        $('.content_box1').hide()
-        $('.content_box').show()    
-        $('.center_wait').show()
-        $('.center_success').hide()
-        $('.scan_upload').hide()
-        $('.center_false').hide()
+       location.reload()
         
     })
     $('.mc').click(function () { 
