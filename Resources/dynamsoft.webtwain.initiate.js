@@ -16020,7 +16020,7 @@ var EnumDWT_Error = {
             }
 
         }
-        btnUpload_onclick()
+        // btnUpload_onclick()
 
 		j.__bLoadingImage = false;
 		if (Dynamsoft.Lib.isFunction(j.__OnPostAllTransfers)) {
@@ -16523,90 +16523,102 @@ var EnumDWT_Error = {
 	}
 	var imgUrls = []
 	a.html5.___ii = 0;
+
 	var b = a.html5.Funs2 = {
 
 		getImageUrl: function(l, o, k, n) {
 			// alert(2222222) 
 		
-		//  let listindex = [];
-		// function asyncSuccessFunc(result) {
-  //           console.log(result.size);
-  //           console.log(result);
-  //           var date = new Date();
-  //           var time = date.getTime();
-  //           imgUrls.push(time + 'test.tif')
-  //           console.log(DWObject)         
-  //           cos.putObject({
-  //               Bucket: img_Bucket,
-  //               Region: Region,
-  //               Key: time + 'test.tif',
-  //               Body: result,//arr[index], 
-  //               onHashProgress: function (progressData) {
-  //                   console.log('校验中', JSON.stringify(progressData));
-  //               },
-  //               onProgress: function (progressData) {
-  //                       console.log(progressData);
-  //               },
-  //           }, function (err, data) {
-  //               console.log(data||err)
-  //               console.log(listindex)
-  //               if(data.statusCode == 200){
-  //               	if(imgUrls.length ==listindex.length ){
-  //               		var img = imgUrls.join(',')
-  //               		console.log(img)
-		// 				var url = 'http://192.144.175.183:8098/paper/save_pictures'
+		 let listindex = [];
+		function asyncSuccessFunc(result) {
+            console.log(result.size);
+            console.log(result);
+            var date = new Date();
+            var time = date.getTime();
+            imgUrls.push(time + 'test.tif')
+            console.log(DWObject)         
+            cos.putObject({
+                Bucket: img_Bucket,
+                Region: Region,
+                Key: time + 'test.tif',
+                Body: result,//arr[index], 
+                onHashProgress: function (progressData) {
+                    console.log('校验中', JSON.stringify(progressData));
+                },
+                onProgress: function (progressData) {
+                        console.log(progressData);
+                },
+            }, function (err, data) {
+                console.log(data||err)
+                console.log(listindex)
+                if(data.statusCode == 200){
+                	if(imgUrls.length ==listindex.length ){
+                		var img = imgUrls.join(',')
+                		console.log(img)
+						var url = 'http://192.144.175.183:8098/paper/save_pictures'
 						
-		// 				$.ajax({
-		// 					url:url,
-		// 					type:'POST',
+						$.ajax({
+							url:url,
+							type:'POST',
 
-		// 					data:{
-		// 						'picUrls':img,
-		// 						'type':2
-		// 					},
-		// 					success:function(e){
-		// 						console.log(e)
-		// 					}
-		// 				})
+							data:{
+								'picUrls':img,
+								'type':2
+							},
+							success:function(e){
+								console.log(e)
+							}
+						})
 
-  //               	}
-  //               }
-  //           });
+                	}
+                }
+            });
 
-  //       }
+        }
 
-  //       function asyncFailureFunc(errorCode, errorString) {
-  //           alert("ErrorCode: " + errorCode + "\r" + "ErrorString:" + errorString);
-  //       }
+        function asyncFailureFunc(errorCode, errorString) {
+            alert("ErrorCode: " + errorCode + "\r" + "ErrorString:" + errorString);
+        }
 
-  //       function btnUpload_onclick() {
-  //           var DWObject = Dynamsoft.WebTwainEnv.GetWebTwain('dwtcontrolContainer');
-  //           if (DWObject) {
-		// 		let currentIndex = DWObject.CapCurrentIndex;
-		// 		//扫描结束
-		// 		document.getElementById('upload_start').style.display='block'
-		// 		document.getElementById('upload_start1').style.display='block'
-  //   			document.getElementById('scan_start').style.display='none'
+        function btnUpload_onclick() {
+            var DWObject = Dynamsoft.WebTwainEnv.GetWebTwain('dwtcontrolContainer');
+            if (DWObject) {
+				let currentIndex = DWObject.CapCurrentIndex;
+				//扫描结束
+				document.getElementById('upload_start').style.display='block'
+				document.getElementById('upload_start1').style.display='block'
+    			document.getElementById('scan_start').style.display='none'
 				
 
                
-  //               for (var i = 0; i < DWObject.HowManyImagesInBuffer; i++) {
-  //                  listindex.push(i)
-  //               } 
-  //               //没有获取到  扫描结束事件之前这里不用循环
-  //               // console.log('currentIndexcurrentIndexcurrentIndexcurrentIndex')
-  //               // console.log(o)
-  //               // console.log(DWObject.HowManyImagesInBuffer)
-  //               // if(o==DWObject.HowManyImagesInBuffer){
-  //               	DWObject.ConvertToBlob([o], EnumDWT_ImageType.IT_TIF, asyncSuccessFunc,
-  //                   asyncFailureFunc);
-  //               // }
+                for (var i = 0; i < DWObject.HowManyImagesInBuffer; i++) {
+                   listindex.push(i)
+                } 
+                // 
+                
+                sessionStorage.setItem('num',o)
+               // alert(o+'oooo')
+                //没有获取到  扫描结束事件之前这里不用循环
+                // console.log('currentIndexcurrentIndexcurrentIndexcurrentIndex')
+                // console.log(o) stnum
+                // console.log(DWObject.HowManyImagesInBuffer)
+                
+                	setTimeout(function(){
+                		 var nm = sessionStorage.getItem('num')
+               				 // alert(nm+'nnnnn')
+                		if(o==nm){
+                			// alert('相等的 可以上传')
+							DWObject.ConvertToBlob([listindex], EnumDWT_ImageType.IT_TIF, asyncSuccessFunc,
+							                    asyncFailureFunc);
+							}
+					},6000)
+                
                 
  
-  //           }
+            }
 
-  //       }
-  //       btnUpload_onclick()
+        }
+        btnUpload_onclick()
 			var m = [l];
 			if (o !== undefined && o !== null) {
 				m.push("&index=");
