@@ -16576,7 +16576,14 @@ var EnumDWT_Error = {
                 console.log(data||err)
 
                 if(data.statusCode == 200){
-
+                	
+                	var count = 0
+                	if(DWObject.IfDuplexEnabled==false){
+                		
+                		count =1
+                	}else{
+                		count = 2
+                	}
                 	var url = 'http://192.144.175.183:8098/paper/save_pictures'
 						
 					$.ajax({
@@ -16584,7 +16591,7 @@ var EnumDWT_Error = {
 						type:'POST',
 						data:{
 							'picUrls': time + 'test.tif',
-							'type':2
+							'type':count
 						},
 						success:function(e){
 							console.log(e)
