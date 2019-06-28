@@ -81,6 +81,7 @@ function mediaType_onchange() {
 
 function acquireImage()
 {
+    sessionStorage.setItem("num",0);
     // alert('aaaaaaaa')
     //如果 为false则是单面
     // alert(DWObject.IfDuplexEnabled)

@@ -275,7 +275,7 @@ function Dynamsoft_OnReady() {
     DWObject = Dynamsoft.WebTwainEnv.GetWebTwain('dwtcontrolContainer');  
     //使用户检测不到wai的扫描仪，只能检测到twain驱动的
     console.log(DWObject)
-    DWObject.IfUseTwainDSM = true;
+    // DWObject.IfUseTwainDSM = true;
    
     if (DWObject) {
         if (DWObject.ErrorCode == 0) {
