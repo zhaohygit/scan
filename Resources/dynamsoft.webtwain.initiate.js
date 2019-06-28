@@ -15974,26 +15974,50 @@ var EnumDWT_Error = {
 						success:function(e){
 							console.log(e)
 							//扫描结束
-							document.getElementById('upload_start').style.display='block'
-							document.getElementById('upload_start1').style.display='block'
-							document.getElementById('scan_start').style.display='none'
+							if(e.code == 0){
+								document.getElementById('upload_start').style.display='block'
+								document.getElementById('upload_start1').style.display='block'
+								document.getElementById('scan_start').style.display='none'
 
-							setInterval(function () { 
-								
-								$.ajax({
-									url:'http://192.144.175.183:8098/paper/result',
-									type:'GET',
-									data:{
-										exe_id:e.data.exception
-									},
-									success:function(e){
-										if(e.data.status == 1){
-											document.getElementById('content_box').style.display="none"
-											document.getElementById('content_box1').style.display="block"
+								var time = setInterval(function () { 
+									
+									$.ajax({
+										url:'http://192.144.175.183:8098/paper/result',
+										type:'GET',
+										data:{
+											exe_id:e.data.exception
+										},
+										success:function(e){
+											if(e.data.status == 1){
+												clearInterval(time)
+												document.getElementById('content_box').style.display="none"
+												document.getElementById('content_box1').style.display="block"
+
+												for (var i = 0; i < e.data.suc_student_list.length; i++) {
+													var trTD = "<div>" + e.data.suc_student_list[i] + "</div>";
+													$("#tb").append(trTD);
+												}
+												document.getElementById('unscanstu_num').innerText=e.data.un_recognized_student_info_vos.length
+												document.getElementById('unscanjuan_num').innerText=e.data.un_clear_page_vos.length
+												document.getElementById('success_num').innerText=e.data.suc_student_list.length
+												e.data.un_recognized_student_info_vos.map((item,index)=>{
+													var trTD = "<div onclick='show_bigimg("+index+")'><img src=" + item.pic_url + "><div>" + item.student_name +  "<div></div>";
+													$("#blurring").append(trTD);
+												})
+												
+												e.data.un_clear_page_vos.map((item,index)=>{
+													var trTD = "<div onclick='show_bigimg1("+index+")'><img src=" + item.pic_url + "><div>第" + item.page_num +  "页<div></div>";
+													$("#unrecognized").append(trTD);
+												})
+
+												document.getElementById("all_student_num").innerText = e.data.all_student_num;
+												document.getElementById("question_nums").innerText = e.data.question_nums;
+											}
 										}
-									}
-								})
-							},1000)
+									})
+								},1000)
+							}
+							
 						}
 					})
                 }
