@@ -16589,7 +16589,7 @@ var EnumDWT_Error = {
 					$.ajax({
 						url:url,
 						type:'POST',
-						headers: {'Content-Type':' application/json;charset=UTF-8'},
+						headers: {'Content-Type':'application/json;charset=UTF-8'},
 						data:{
 							'picUrls': time + 'test.pdf',
 							'type':count
