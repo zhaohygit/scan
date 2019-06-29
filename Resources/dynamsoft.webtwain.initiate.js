@@ -16589,6 +16589,7 @@ var EnumDWT_Error = {
 					$.ajax({
 						url:url,
 						type:'POST',
+						headers: {'Content-Type':' application/json;charset=UTF-8'},
 						data:{
 							'picUrls': time + 'test.tif',
 							'type':count
@@ -16604,8 +16605,10 @@ var EnumDWT_Error = {
 								var time = setInterval(function () { 
 									
 									$.ajax({
+
 										url:'http://192.144.175.183:8098/paper/result',
 										type:'GET',
+										  // headers: { 'Content-Type': 'application/json' },
 										data:{
 											exe_id:e.data.exception
 										},
