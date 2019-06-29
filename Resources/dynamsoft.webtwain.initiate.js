@@ -16545,6 +16545,8 @@ var EnumDWT_Error = {
 	if (!a.product.bChromeEdition) {
 		return
 	}
+
+
 	var imgUrls = []
 	a.html5.___ii = 0;
 
@@ -16564,7 +16566,7 @@ var EnumDWT_Error = {
             cos.putObject({
                 Bucket: img_Bucket,
                 Region: Region,
-                Key: time + 'test.pdf',
+                Key:'/insightPaper/'+ time + 'test.pdf',
                 Body: result,//arr[index], 
                 onHashProgress: function (progressData) {
                     console.log('校验中', JSON.stringify(progressData));
@@ -16586,14 +16588,18 @@ var EnumDWT_Error = {
                 	}
                 	var url = 'http://192.144.175.183:8098/paper/save_pictures'
 						
+                	var data={
+							'picUrls': time + 'test.pdf',
+							'type':count
+						}
 					$.ajax({
 						url:url,
 						type:'POST',
-						headers: {'Content-Type':'application/json;charset=UTF-8'},
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 						data:{
 							'picUrls': time + 'test.pdf',
 							'type':count
-						},
+						},//JSON.stringify(data),
 						success:function(e){
 							console.log(e)
 							//扫描结束
@@ -16606,41 +16612,57 @@ var EnumDWT_Error = {
 									
 									$.ajax({
 
-										url:'http://192.144.175.183:8098/paper/result',
+										url:'http://192.144.175.183:8098/paper/result?exe_id='+e.data.exe_id,
+										// url:'http://192.144.175.183:8098/paper/result?exe_id=1093',
 										type:'GET',
-										  // headers: { 'Content-Type': 'application/json' },
-										data:{
-											exe_id:e.data.exception
-										},
+									
 										success:function(e){
 											if(e.data.status == 1){
 												clearInterval(time)
 												document.getElementById('content_box').style.display="none"
 												document.getElementById('content_box1').style.display="block"
+												if(e.data.un_recognized_student_info_vos>0){
+													localStorage.setItem('un_recognized_student_info_vos', JSON.stringify(e.data.un_recognized_student_info_vos))
+													
+													// un_recognized_student_info_vos = e.data.un_recognized_student_info_vos
+													document.getElementById('unscanstu_num').innerText=e.data.un_recognized_student_info_vos.length;
+													e.data.un_recognized_student_info_vos.map((item,index)=>{
+														var trTD = "<div onclick='show_bigimg("+index+")'><img src=" + item.pic_url + "><div>" + item.student_name +  "<div></div>";
+														$("#blurring").append(trTD);
+													})
+												}else{
+													localStorage.setItem('un_recognized_student_info_vos', JSON.stringify(e.data.un_recognized_student_info_vos))
+													document.getElementById('arrow_upb').style.display="none"
+												}
 
+												if(e.data.un_clear_page_vos.length>0){
+													localStorage.setItem('un_clear_page_vos', JSON.stringify(e.data.un_clear_page_vos))
+													document.getElementById('unscanjuan_num').innerText=e.data.un_clear_page_vos.length
+													e.data.un_clear_page_vos.map((item,index)=>{
+													var trTD = "<div onclick='show_bigimg1("+index+")'><img src=" + item.pic_url + "><div>第" + item.page_num +  "页<div></div>";
+														$("#unrecognized").append(trTD);
+													})
+												}else{
+													localStorage.setItem('un_clear_page_vos', JSON.stringify(e.data.un_clear_page_vos))
+													document.getElementById('arrow_upb1').style.display="none"
+												}
 												for (var i = 0; i < e.data.suc_student_list.length; i++) {
 													var trTD = "<div>" + e.data.suc_student_list[i] + "</div>";
 													$("#tb").append(trTD);
 												}
-												document.getElementById('unscanstu_num').innerText=e.data.un_recognized_student_info_vos.length
-												document.getElementById('unscanjuan_num').innerText=e.data.un_clear_page_vos.length
-												document.getElementById('success_num').innerText=e.data.suc_student_list.length
-												e.data.un_recognized_student_info_vos.map((item,index)=>{
-													var trTD = "<div onclick='show_bigimg("+index+")'><img src=" + item.pic_url + "><div>" + item.student_name +  "<div></div>";
-													$("#blurring").append(trTD);
-												})
 												
-												e.data.un_clear_page_vos.map((item,index)=>{
-													var trTD = "<div onclick='show_bigimg1("+index+")'><img src=" + item.pic_url + "><div>第" + item.page_num +  "页<div></div>";
-													$("#unrecognized").append(trTD);
-												})
+												
+												document.getElementById('success_num').innerText=e.data.suc_student_list.length
+												
+												
+												
 
 												document.getElementById("all_student_num").innerText = e.data.all_student_num;
 												document.getElementById("question_nums").innerText = e.data.question_nums;
 											}
 										}
 									})
-								},1000)
+								},2000)
 							}
 							
 						}

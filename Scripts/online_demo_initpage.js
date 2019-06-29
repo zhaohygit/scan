@@ -187,7 +187,7 @@ function initCustomScan() {
         vResolution.options.add(new Option("200", 200));
         vResolution.options.add(new Option("300", 300));
 
-        vResolution.options[0].selected = true; 
+        vResolution.options[3].selected = true; 
     }
   
 }

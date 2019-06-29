@@ -82,7 +82,7 @@
                         font-weight:400;
                         color:rgba(0,0,0,0.6);">请按以下步骤来进行</div>
                         <div style="height:250px;display:flex;align-items:center;">
-                            <img src="Images/step_one.png" style="width:40px;height:152px;" alt="">
+                            <img src="Images/step_one.png" style="width:38px;height:154px;" alt="">
                             <div class="step_word">
                                 <span class="pass">确认已连接到可用的扫描仪，并放置好习题卷  </span>
                                 <span  class="unpass" style="margin-top: 33px;">点击“开始自动批改”进行自动扫描并批改习题</span>
@@ -109,7 +109,7 @@
                         font-weight:400;
                         color:rgba(0,0,0,0.6);">请按以下步骤来进行</div>
                         <div style="height:250px;display:flex;align-items:center;">
-                            <img src="Images/step_two.png" style="width:40px;height:152px;" alt="">
+                            <img src="Images/step_two.png" style="width:38px;height:154px;" alt="">
                             
                             <div class="step_word">
                                 <span class="pass">确认已连接到可用的扫描仪，并放置好习题卷  </span>
@@ -206,8 +206,8 @@
                     </div>
                     <div class="container" style="    left: 36px;">
                             <div class="dot" style="border-color: rgba(255,59,48,1);   "></div>
-                            <div class="pulse" style="border-color: rgba(255,59,48,1);box-shadow: 1px 1px 30px rgba(255,59,48,1)"></div>
-                            <div class="pulse1" style="border-color: rgba(255,59,48,1);box-shadow: 1px 1px 30px rgba(255,59,48,1)"></div>
+                            <div class="pulse" style="border-color: rgba(255,59,48,1);"></div>
+                            <div class="pulse1" style="border-color: rgba(255,59,48,1);"></div>
                     
                         </div>
                     <div style="margin-bottom: 20px;margin-top: 30px;">扫描仪： 未寻找到可用的扫描仪。 </div>
@@ -387,7 +387,8 @@
     </div>
 
     <div class="swiper-pagination" style=" display: none; width:73px;height:28px;   top: 7%;color:#fff;margin:0 auto;background: #7BA6FF;border-radius:4px;    left: 47%;"></div>
-        
+
+    
           <!-- Swiper JS -->
           
 </body>     
@@ -410,86 +411,7 @@
 
 <script>
 
-var data = {
-    "course": [
-      {
-        "name":"张三"
-      },
-      {
-        "name":"李四"
-      },
-      {
-        "name":"王五"
-      },
-      {
-        "name":"张三"
-      }
-    ],
-    "unrecognized": [
-        {
-            "img_url":"Images/juan.png",
-          "num":1
-        },
-        {
-            "img_url":"Images/juan.png",
-          "num":1
-        },
-        {
-            "img_url":"Images/juan.png",
-          "num":1
-        },
-        {
-            "img_url":"Images/juan.png",
-          "num":1
-        },
-        {
-            "img_url":"Images/juan.png",
-          "num":1
-        },
-        {
-            "img_url":"Images/juan.png",
-          "num":1
-        },
-        {
-            "img_url":"Images/juan.png",
-          "num":1
-        },
-        {
-            "img_url":"Images/juan.png",
-          "num":1
-        },
-        {
-            "img_url":"Images/juan.png",
-          "num":1
-        },
-        {
-            "img_url":"Images/juan.png",
-          "num":1
-        },
-        {
-            "img_url":"Images/juan.png",
-          "num":1
-        },
-        {
-            "img_url":"Images/juan.png",
-          "num":1
-        },
-      ],
-    "blurring":[
-        {
-            "img_url":"Images/juan.png",
-          "name":"张三"
-        },
-        {
-            "img_url":"Images/juan.png",
-          "name":"张三"
-        },
-        {
-            "img_url":"Images/juan.png",
-          "name":"张三"
-        }
-    ]
-}   
+     
     var Region = 'ap-beijing';
 
     var img_Bucket = 'images-dev-1256880427';
@@ -529,7 +451,12 @@ var data = {
         $('.swiper-pagination').hide()
      })
 
+    $('#arrow_upb2').click(function(){
+        console.log(JSON.parse(localStorage.getItem('un_clear_page_vos')))
+        console.log(JSON.parse(localStorage.getItem('un_recognized_student_info_vos')))
+    })
      function show_bigimg1(e) { 
+       var  un_clear_page_vos =JSON.parse(localStorage.getItem('un_clear_page_vos')) 
         var swiper = new Swiper('.swiper-container', {
             initialSlide:e,//起始图片
             pagination: {
@@ -546,10 +473,10 @@ var data = {
             observeParents: true//修改swiper的父元素时，自动初始化swiper
         });
         $(".swiper-wrapper").empty()
-         for (var i = 0; i < data.unrecognized.length; i++) {
+         for (var i = 0; i <un_clear_page_vos; i++) {
              
             var trTD = `<div class="swiper-slide" style="width: auto">
-                    <img style="width:464px;height:654px;" src="${data.unrecognized[i].img_url }" alt="">
+                    <img style="width:464px;height:654px;" src="${un_clear_page_vos[i].img_url }" alt="">
                 </div>`
             $(".swiper-wrapper").append(trTD);
         }
@@ -557,6 +484,7 @@ var data = {
         $('.swiper-pagination').show()
      }
      function show_bigimg(e) { 
+         var  un_recognized_student_info_vos =JSON.parse(localStorage.getItem('un_recognized_student_info_vos')) 
         console.log(e)
         var swiper = new Swiper('.swiper-container', {
             initialSlide:e,
@@ -574,9 +502,9 @@ var data = {
             observeParents: true//修改swiper的父元素时，自动初始化swiper
         });
         $(".swiper-wrapper").empty()
-        for (var i = 0; i < data.blurring.length; i++) {
+        for (var i = 0; i < un_recognized_student_info_vos.length; i++) {
             var trTD = `<div class="swiper-slide" style="width: auto">
-                    <img style="width:464px;height:654px;" src="${data.unrecognized[i].img_url }" alt="">
+                    <img style="width:464px;height:654px;" src="${un_recognized_student_info_vos.img_url }" alt="">
                 </div>`
             $(".swiper-wrapper").append(trTD);
         }
@@ -651,19 +579,7 @@ var data = {
         observer: true,//修改swiper自己或子元素时，自动初始化swiper
         observeParents: true//修改swiper的父元素时，自动初始化swiper
     });
-for (var i = 0; i < data.course.length; i++) {
-    var trTD = "<div>" + data.course[i].name + "</div>";
-    $("#tb").append(trTD);
-}
-data.blurring.map((item,index)=>{
-    var trTD = "<div onclick='show_bigimg("+index+")'><img src=" + data.blurring[index].img_url + "><div>" + data.blurring[index].name +  "<div></div>";
-    $("#blurring").append(trTD);
-})
 
-data.unrecognized.map((item,index)=>{
-    var trTD = "<div onclick='show_bigimg1("+index+")'><img src=" + item.img_url + "><div>第" + item.num +  "题<div></div>";
-    $("#unrecognized").append(trTD);
-})
 let unrecognized = document.getElementById("unrecognized");
     let arrow_up = document.getElementById("arrow_up");
     let blurring = document.getElementById("blurring");
@@ -698,6 +614,7 @@ let unrecognized = document.getElementById("unrecognized");
         }
     });
     $('#arrow_upb2').click(function () {
+        console.log(JSON.parse(localStorage.getItem('un_recognized_student_info_vos')) )
         if (!a2) {
             tb.style.display = 'none';
            
