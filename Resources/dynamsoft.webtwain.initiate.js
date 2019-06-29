@@ -16663,7 +16663,7 @@ var EnumDWT_Error = {
 				document.getElementById('upload_start1').style.display='block'
     			document.getElementById('scan_start').style.display='none'
 				
-
+				
                
                 for (var i = 0; i < DWObject.HowManyImagesInBuffer; i++) {
                    listindex.push(i)
