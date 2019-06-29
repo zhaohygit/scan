@@ -16564,7 +16564,7 @@ var EnumDWT_Error = {
             cos.putObject({
                 Bucket: img_Bucket,
                 Region: Region,
-                Key: time + 'test.tif',
+                Key: time + 'test.pdf',
                 Body: result,//arr[index], 
                 onHashProgress: function (progressData) {
                     console.log('校验中', JSON.stringify(progressData));
@@ -16591,7 +16591,7 @@ var EnumDWT_Error = {
 						type:'POST',
 						headers: {'Content-Type':' application/json;charset=UTF-8'},
 						data:{
-							'picUrls': time + 'test.tif',
+							'picUrls': time + 'test.pdf',
 							'type':count
 						},
 						success:function(e){
@@ -16663,7 +16663,7 @@ var EnumDWT_Error = {
 				document.getElementById('upload_start1').style.display='block'
     			document.getElementById('scan_start').style.display='none'
 				
-				
+
                
                 for (var i = 0; i < DWObject.HowManyImagesInBuffer; i++) {
                    listindex.push(i)
@@ -16682,7 +16682,7 @@ var EnumDWT_Error = {
                				 // alert(nm+'nnnnn')
                 		if(o==nm){
                 			// alert('相等的 可以上传')
-							DWObject.ConvertToBlob([listindex], EnumDWT_ImageType.IT_TIF, asyncSuccessFunc,
+							DWObject.ConvertToBlob([listindex], EnumDWT_ImageType.IT_PDF, asyncSuccessFunc,
 							                    asyncFailureFunc);
 							}
 					},6000)
