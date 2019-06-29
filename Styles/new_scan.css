@@ -118,10 +118,10 @@ button :focus{outline:0;}
 
 .Rotation{
     -webkit-transform: rotate(360deg);
-    animation: rotation 5s linear infinite;
-    -moz-animation: rotation 5s linear infinite;
-    -webkit-animation: rotation 5s linear infinite;
-    -o-animation: rotation 5s linear infinite;
+    animation: rotation 2s linear infinite;
+    -moz-animation: rotation 2s linear infinite;
+    -webkit-animation: rotation 2s linear infinite;
+    -o-animation: rotation 2s linear infinite;
 }
 .step_word{
     display: flex;
@@ -167,7 +167,7 @@ button :focus{outline:0;}
     50% {
     transform: scale(1.2);
     -webkit-transform: scale(1.2);
-    opacity: 0.3;
+    opacity: 0.15;
     }
     100% {
     transform: scale(1.4);
@@ -244,9 +244,9 @@ button :focus{outline:0;}
         border-radius: 50%;
         z-index: 1;
         opacity: 0;
-        -webkit-animation: warn 1s ease-out;
-        -moz-animation: warn 1s ease-out;
-        animation: warn 1s ease-out;
+        -webkit-animation: warn1 1.5s ease-out;
+        -moz-animation: warn1 1.5s ease-out;
+        animation: warn1 1.5s ease-out;
         -webkit-animation-iteration-count: infinite;
         -moz-animation-iteration-count: infinite;
         animation-iteration-count: infinite;
