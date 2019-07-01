@@ -46,7 +46,7 @@ body{
 }
 
 .center_wait,.center_success,.center_false,.scan_upload{
-    margin-top: 104px;
+    margin-top: 3%;
     display: flex;
     justify-content: space-between;
     margin-left: 68px;

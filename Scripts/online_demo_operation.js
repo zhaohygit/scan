@@ -87,7 +87,12 @@ function acquireImage()
     // alert(DWObject.IfDuplexEnabled)
     // IfUseTwainDSM = true;
     console.log('开始扫描')
-       
+    var old_date = new Date()
+    old_date = old_date.getTime()
+    localStorage.setItem('old_date', old_date)
+    document.getElementById('scan_upload').style.display='flex'
+    document.getElementById('center_success').style.display='none'
+    
     var cIndex = document.getElementById("source").selectedIndex;
     if (cIndex < 0)
         return;
@@ -97,7 +102,7 @@ function acquireImage()
     DWObject.OpenSource();
     DWObject.IfShowUI = document.getElementById("ShowUI").checked;
     //使用双面还是单面扫描  true双面，false单面
-    DWObject.IfDuplexEnabled = false;
+    DWObject.IfDuplexEnabled = true;
     var i;
     for (i = 0; i < 3; i++) {
         if (document.getElementsByName("PixelType").item(i).checked == true)
@@ -632,7 +637,6 @@ function btnRemoveCurrentImage_onclick() {
     }
     DWObject.RemoveAllSelectedImages();
     if (DWObject.HowManyImagesInBuffer == 0) {
-        console.log('error')
         document.getElementById("DW_TotalImage").value = DWObject.HowManyImagesInBuffer;
         document.getElementById("DW_CurrentImage").value = "";
         return;

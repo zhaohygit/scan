@@ -15946,11 +15946,29 @@ var EnumDWT_Error = {
 
 		Dynamsoft.Lib.log("On PostAllTransfers Results:" + h);
 		function asyncSuccessFunc(result) {
-            console.log(result.size);
-            console.log(result);
-            console.log(h)
+            var web_config = "zhihuotech.com/dev";
+			// var web_config = "zhihuotech.com"
             var date = new Date();
-            var time = date.getTime();
+			var time = date.getTime();
+			
+			var old_date = localStorage.getItem('old_date')
+			var jsonList = {
+				"code": '989991',
+				"times": time - old_date
+			};
+			$.ajax({
+				type: "post",
+				url: "https://" + web_config + "/applet/logUser",
+				headers: { 'Content-Type': 'application/json' },
+				data: JSON.stringify(jsonList),
+				success: function (data) {
+					//console.log('分享PV')
+				},
+				error: function () {
+					// alert('error')
+				}
+			});
+
             console.log(DWObject)      
              cos.putObject({
                 Bucket: img_Bucket,
@@ -15998,36 +16016,74 @@ var EnumDWT_Error = {
 								document.getElementById('upload_start').style.display='block'
 								document.getElementById('upload_start1').style.display='block'
 								document.getElementById('scan_start').style.display='none'
-
+								var dispose_time = 0
 								var time = setInterval(function () { 
-			
+									dispose_time = dispose_time+5
+									
+									
 									$.ajax({
 
 										url:'http://192.144.175.183:8098/paper/result?exe_id='+e.data.exe_id,
 										// url:'http://192.144.175.183:8098/paper/result?exe_id=1093',
 										type:'GET',
+									
 										success:function(e){
 											if(e.data.status == 1){
+												
 												clearInterval(time)
+												var jsonList = {
+													"code": '989992',
+													"times": dispose_time
+												};
+												$.ajax({
+													type: "post",
+													url: "https://" + web_config + "/applet/logUser",
+													headers: { 'Content-Type': 'application/json' },
+													data: JSON.stringify(jsonList),
+													success: function (data) {
+														//console.log('分享PV')
+													},
+													error: function () {
+														// alert('error')
+													}
+												});
 												document.getElementById('content_box').style.display="none"
 												document.getElementById('content_box1').style.display="block"
+												if(e.data.un_recognized_student_info_vos>0){
+													localStorage.setItem('un_recognized_student_info_vos', JSON.stringify(e.data.un_recognized_student_info_vos))
+													
+													// un_recognized_student_info_vos = e.data.un_recognized_student_info_vos
+													document.getElementById('unscanstu_num').innerText=e.data.un_recognized_student_info_vos.length;
+													e.data.un_recognized_student_info_vos.map((item,index)=>{
+														var trTD = "<div onclick='show_bigimg("+index+")'><img src=" + item.pic_url + "><div>" + item.student_name +  "<div></div>";
+														$("#blurring").append(trTD);
+													})
+												}else{
+													localStorage.setItem('un_recognized_student_info_vos', JSON.stringify(e.data.un_recognized_student_info_vos))
+													document.getElementById('arrow_upb').style.display="none"
+												}
 
+												if(e.data.un_clear_page_vos.length>0){
+													localStorage.setItem('un_clear_page_vos', JSON.stringify(e.data.un_clear_page_vos))
+													document.getElementById('unscanjuan_num').innerText=e.data.un_clear_page_vos.length
+													e.data.un_clear_page_vos.map((item,index)=>{
+													var trTD = "<div onclick='show_bigimg1("+index+")'><img src=" + item.pic_url + "><div>第" + item.page_num +  "页<div></div>";
+														$("#unrecognized").append(trTD);
+													})
+												}else{
+													localStorage.setItem('un_clear_page_vos', JSON.stringify(e.data.un_clear_page_vos))
+													document.getElementById('arrow_upb1').style.display="none"
+												}
 												for (var i = 0; i < e.data.suc_student_list.length; i++) {
 													var trTD = "<div>" + e.data.suc_student_list[i] + "</div>";
 													$("#tb").append(trTD);
 												}
-												document.getElementById('unscanstu_num').innerText=e.data.un_recognized_student_info_vos.length
-												document.getElementById('unscanjuan_num').innerText=e.data.un_clear_page_vos.length
-												document.getElementById('success_num').innerText=e.data.suc_student_list.length
-												e.data.un_recognized_student_info_vos.map((item,index)=>{
-													var trTD = "<div onclick='show_bigimg("+index+")'><img src=" + item.pic_url + "><div>" + item.student_name +  "<div></div>";
-													$("#blurring").append(trTD);
-												})
 												
-												e.data.un_clear_page_vos.map((item,index)=>{
-													var trTD = "<div onclick='show_bigimg1("+index+")'><img src=" + item.pic_url + "><div>第" + item.page_num +  "页<div></div>";
-													$("#unrecognized").append(trTD);
-												})
+												
+												document.getElementById('success_num').innerText=e.data.suc_student_list.length
+												
+												
+												
 
 												document.getElementById("all_student_num").innerText = e.data.all_student_num;
 												document.getElementById("question_nums").innerText = e.data.question_nums;
@@ -16052,9 +16108,10 @@ var EnumDWT_Error = {
             var DWObject = Dynamsoft.WebTwainEnv.GetWebTwain('dwtcontrolContainer');
             if (DWObject) {
                 let currentIndex = DWObject.CapCurrentIndex;
-                let listindex = [];
-                 document.getElementById('scan_upload').style.display='flex'
-    				document.getElementById('center_success').style.display='none'
+				let listindex = [];
+				
+                document.getElementById('scan_upload').style.display='flex'
+    			document.getElementById('center_success').style.display='none'
 
                 for (var i = 0; i < DWObject.HowManyImagesInBuffer; i++) {
                    listindex.push(i)
