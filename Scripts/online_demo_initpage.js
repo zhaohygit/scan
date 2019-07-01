@@ -472,6 +472,7 @@ function appendMessage(strMessage) {
 
 function checkIfImagesInBuffer() {
     if (DWObject.HowManyImagesInBuffer == 0) {
+        console.log('error')
         appendMessage("There is no image in buffer.<br />")
         return false;
     }

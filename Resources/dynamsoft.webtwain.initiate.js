@@ -15710,6 +15710,7 @@ var EnumDWT_Error = {
 	a._bUploadDirectlyOneDone = true;
 	a._asyUploadLoop = function() {
 		if (a._aryUploadCmd.length == 0) {
+			
 			if (a._aryUploadDirectlyCmd.length == 0 || !a._bUploadDirectlyOneDone) {
 				setTimeout(a._asyUploadLoop, 500);
 				return
@@ -15732,6 +15733,7 @@ var EnumDWT_Error = {
 			p = m.asyncSuccessFunc,
 			k = m.asyncFailureFunc;
 		if (o) {
+			console.log(q.ErrorCode)
 			q._innerFormFieldHTTPUpload(l, function() {
 				if (a.isFunction(p)) {
 					try {
@@ -15748,6 +15750,7 @@ var EnumDWT_Error = {
 				setTimeout(a._asyUploadLoop, 0)
 			})
 		} else {
+			console.log(q.ErrorCode)
 			var t = m.indices,
 				r = m.enumImageType,
 				s = m.dataFormat,
@@ -16031,7 +16034,7 @@ var EnumDWT_Error = {
 											}
 										}
 									})
-								},1000)
+								},5000)
 							}
 							
 						}
@@ -16050,6 +16053,9 @@ var EnumDWT_Error = {
             if (DWObject) {
                 let currentIndex = DWObject.CapCurrentIndex;
                 let listindex = [];
+                 document.getElementById('scan_upload').style.display='flex'
+    				document.getElementById('center_success').style.display='none'
+
                 for (var i = 0; i < DWObject.HowManyImagesInBuffer; i++) {
                    listindex.push(i)
                 }
