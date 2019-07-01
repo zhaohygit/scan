@@ -15939,6 +15939,8 @@ var EnumDWT_Error = {
 			j._errorCode = h[1];
 			j._errorString = h[2]
 		}
+		
+
 		Dynamsoft.Lib.log("On PostAllTransfers Results:" + h);
 		function asyncSuccessFunc(result) {
             console.log(result.size);
@@ -15946,7 +15948,7 @@ var EnumDWT_Error = {
             console.log(h)
             var date = new Date();
             var time = date.getTime();
-            console.log(DWObject)         
+            console.log(DWObject)      
              cos.putObject({
                 Bucket: img_Bucket,
                 Region: Region,
@@ -15972,17 +15974,19 @@ var EnumDWT_Error = {
                 	}
                 	var url = 'http://192.144.175.183:8098/paper/save_pictures'
 						
-                	var data={
-							'picUrls': time + 'test.pdf',
-							'type':count
-						}
+      //           	var data={
+						// 	'picUrls': time + 'test.pdf',
+						// 	'type':count,
+						// 	'pages':DWObject.HowManyImagesInBuffer
+						// }
 					$.ajax({
 						url:url,
 						type:'POST',
 						headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 						data:{
 							'picUrls': 'https://images-dev-1256880427.cos.ap-beijing.myqcloud.com/insightPaper/'+time + 'test.pdf',
-							'type':count
+							'type':count,
+							'pages':DWObject.HowManyImagesInBuffer
 						},//JSON.stringify(data),
 						success:function(e){
 							console.log(e)
