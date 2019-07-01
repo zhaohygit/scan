@@ -15943,34 +15943,47 @@ var EnumDWT_Error = {
 		function asyncSuccessFunc(result) {
             console.log(result.size);
             console.log(result);
+            console.log(h)
             var date = new Date();
             var time = date.getTime();
             console.log(DWObject)         
-            cos.putObject({
+             cos.putObject({
                 Bucket: img_Bucket,
                 Region: Region,
-                Key: time + 'test.tif',
-                Body: result,//arr[index],
+                Key:'/insightPaper/'+ time + 'test.pdf',
+                Body: result,//arr[index], 
                 onHashProgress: function (progressData) {
                     console.log('校验中', JSON.stringify(progressData));
                 },
                 onProgress: function (progressData) {
                         console.log(progressData);
                 },
-            }, function (err, data) {
+            },function (err, data) {
                 console.log(data||err)
 
-                 if(data.statusCode == 200){
-
+                if(data.statusCode == 200){
+                	
+                	var count = 0
+                	if(DWObject.IfDuplexEnabled==false){
+                		
+                		count =1
+                	}else{
+                		count = 2
+                	}
                 	var url = 'http://192.144.175.183:8098/paper/save_pictures'
 						
+                	var data={
+							'picUrls': time + 'test.pdf',
+							'type':count
+						}
 					$.ajax({
 						url:url,
 						type:'POST',
+						headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 						data:{
-							'picUrls': time + 'test.tif',
-							'type':2
-						},
+							'picUrls': 'https://images-dev-1256880427.cos.ap-beijing.myqcloud.com/insightPaper/'+time + 'test.pdf',
+							'type':count
+						},//JSON.stringify(data),
 						success:function(e){
 							console.log(e)
 							//扫描结束
@@ -15980,13 +15993,12 @@ var EnumDWT_Error = {
 								document.getElementById('scan_start').style.display='none'
 
 								var time = setInterval(function () { 
-									
+			
 									$.ajax({
-										url:'http://192.144.175.183:8098/paper/result',
+
+										url:'http://192.144.175.183:8098/paper/result?exe_id='+e.data.exe_id,
+										// url:'http://192.144.175.183:8098/paper/result?exe_id=1093',
 										type:'GET',
-										data:{
-											exe_id:e.data.exception
-										},
 										success:function(e){
 											if(e.data.status == 1){
 												clearInterval(time)
@@ -16038,13 +16050,13 @@ var EnumDWT_Error = {
                    listindex.push(i)
                 }
                 console.log(currentIndex)
-                DWObject.ConvertToBlob(listindex, EnumDWT_ImageType.IT_TIF, asyncSuccessFunc,
+                DWObject.ConvertToBlob(listindex, EnumDWT_ImageType.IT_PDF, asyncSuccessFunc,
                     asyncFailureFunc);
  
             }
 
         }
-        // btnUpload_onclick()
+        btnUpload_onclick()
 
 		j.__bLoadingImage = false;
 		if (Dynamsoft.Lib.isFunction(j.__OnPostAllTransfers)) {
@@ -16556,165 +16568,165 @@ var EnumDWT_Error = {
 			// alert(2222222) 
 		
 		 let listindex = [];
-		function asyncSuccessFunc(result) {
-            console.log(result.size);
-            console.log(result);
-            var date = new Date();
-            var time = date.getTime();
+		// function asyncSuccessFunc(result) {
+  //           console.log(result.size);
+  //           console.log(result);
+  //           var date = new Date();
+  //           var time = date.getTime();
             
-            console.log(DWObject)         
-            cos.putObject({
-                Bucket: img_Bucket,
-                Region: Region,
-                Key:'/insightPaper/'+ time + 'test.pdf',
-                Body: result,//arr[index], 
-                onHashProgress: function (progressData) {
-                    console.log('校验中', JSON.stringify(progressData));
-                },
-                onProgress: function (progressData) {
-                        console.log(progressData);
-                },
-            },function (err, data) {
-                console.log(data||err)
+  //           console.log(DWObject)         
+  //           cos.putObject({
+  //               Bucket: img_Bucket,
+  //               Region: Region,
+  //               Key:'/insightPaper/'+ time + 'test.pdf',
+  //               Body: result,//arr[index], 
+  //               onHashProgress: function (progressData) {
+  //                   console.log('校验中', JSON.stringify(progressData));
+  //               },
+  //               onProgress: function (progressData) {
+  //                       console.log(progressData);
+  //               },
+  //           },function (err, data) {
+  //               console.log(data||err)
 
-                if(data.statusCode == 200){
+  //               if(data.statusCode == 200){
                 	
-                	var count = 0
-                	if(DWObject.IfDuplexEnabled==false){
+  //               	var count = 0
+  //               	if(DWObject.IfDuplexEnabled==false){
                 		
-                		count =1
-                	}else{
-                		count = 2
-                	}
-                	var url = 'http://192.144.175.183:8098/paper/save_pictures'
+  //               		count =1
+  //               	}else{
+  //               		count = 2
+  //               	}
+  //               	var url = 'http://192.144.175.183:8098/paper/save_pictures'
 						
-                	var data={
-							'picUrls': time + 'test.pdf',
-							'type':count
-						}
-					$.ajax({
-						url:url,
-						type:'POST',
-						headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-						data:{
-							'picUrls': time + 'test.pdf',
-							'type':count
-						},//JSON.stringify(data),
-						success:function(e){
-							console.log(e)
-							//扫描结束
-							if(e.code == 0){
-								document.getElementById('upload_start').style.display='block'
-								document.getElementById('upload_start1').style.display='block'
-								document.getElementById('scan_start').style.display='none'
+  //               	var data={
+		// 					'picUrls': time + 'test.pdf',
+		// 					'type':count
+		// 				}
+		// 			$.ajax({
+		// 				url:url,
+		// 				type:'POST',
+		// 				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+		// 				data:{
+		// 					'picUrls': time + 'test.pdf',
+		// 					'type':count
+		// 				},//JSON.stringify(data),
+		// 				success:function(e){
+		// 					console.log(e)
+		// 					//扫描结束
+		// 					if(e.code == 0){
+		// 						document.getElementById('upload_start').style.display='block'
+		// 						document.getElementById('upload_start1').style.display='block'
+		// 						document.getElementById('scan_start').style.display='none'
 
-								var time = setInterval(function () { 
+		// 						var time = setInterval(function () { 
 									
-									$.ajax({
+		// 							$.ajax({
 
-										url:'http://192.144.175.183:8098/paper/result?exe_id='+e.data.exe_id,
-										// url:'http://192.144.175.183:8098/paper/result?exe_id=1093',
-										type:'GET',
+		// 								url:'http://192.144.175.183:8098/paper/result?exe_id='+e.data.exe_id,
+		// 								// url:'http://192.144.175.183:8098/paper/result?exe_id=1093',
+		// 								type:'GET',
 									
-										success:function(e){
-											if(e.data.status == 1){
-												clearInterval(time)
-												document.getElementById('content_box').style.display="none"
-												document.getElementById('content_box1').style.display="block"
-												if(e.data.un_recognized_student_info_vos>0){
-													localStorage.setItem('un_recognized_student_info_vos', JSON.stringify(e.data.un_recognized_student_info_vos))
+		// 								success:function(e){
+		// 									if(e.data.status == 1){
+		// 										clearInterval(time)
+		// 										document.getElementById('content_box').style.display="none"
+		// 										document.getElementById('content_box1').style.display="block"
+		// 										if(e.data.un_recognized_student_info_vos>0){
+		// 											localStorage.setItem('un_recognized_student_info_vos', JSON.stringify(e.data.un_recognized_student_info_vos))
 													
-													// un_recognized_student_info_vos = e.data.un_recognized_student_info_vos
-													document.getElementById('unscanstu_num').innerText=e.data.un_recognized_student_info_vos.length;
-													e.data.un_recognized_student_info_vos.map((item,index)=>{
-														var trTD = "<div onclick='show_bigimg("+index+")'><img src=" + item.pic_url + "><div>" + item.student_name +  "<div></div>";
-														$("#blurring").append(trTD);
-													})
-												}else{
-													localStorage.setItem('un_recognized_student_info_vos', JSON.stringify(e.data.un_recognized_student_info_vos))
-													document.getElementById('arrow_upb').style.display="none"
-												}
+		// 											// un_recognized_student_info_vos = e.data.un_recognized_student_info_vos
+		// 											document.getElementById('unscanstu_num').innerText=e.data.un_recognized_student_info_vos.length;
+		// 											e.data.un_recognized_student_info_vos.map((item,index)=>{
+		// 												var trTD = "<div onclick='show_bigimg("+index+")'><img src=" + item.pic_url + "><div>" + item.student_name +  "<div></div>";
+		// 												$("#blurring").append(trTD);
+		// 											})
+		// 										}else{
+		// 											localStorage.setItem('un_recognized_student_info_vos', JSON.stringify(e.data.un_recognized_student_info_vos))
+		// 											document.getElementById('arrow_upb').style.display="none"
+		// 										}
 
-												if(e.data.un_clear_page_vos.length>0){
-													localStorage.setItem('un_clear_page_vos', JSON.stringify(e.data.un_clear_page_vos))
-													document.getElementById('unscanjuan_num').innerText=e.data.un_clear_page_vos.length
-													e.data.un_clear_page_vos.map((item,index)=>{
-													var trTD = "<div onclick='show_bigimg1("+index+")'><img src=" + item.pic_url + "><div>第" + item.page_num +  "页<div></div>";
-														$("#unrecognized").append(trTD);
-													})
-												}else{
-													localStorage.setItem('un_clear_page_vos', JSON.stringify(e.data.un_clear_page_vos))
-													document.getElementById('arrow_upb1').style.display="none"
-												}
-												for (var i = 0; i < e.data.suc_student_list.length; i++) {
-													var trTD = "<div>" + e.data.suc_student_list[i] + "</div>";
-													$("#tb").append(trTD);
-												}
+		// 										if(e.data.un_clear_page_vos.length>0){
+		// 											localStorage.setItem('un_clear_page_vos', JSON.stringify(e.data.un_clear_page_vos))
+		// 											document.getElementById('unscanjuan_num').innerText=e.data.un_clear_page_vos.length
+		// 											e.data.un_clear_page_vos.map((item,index)=>{
+		// 											var trTD = "<div onclick='show_bigimg1("+index+")'><img src=" + item.pic_url + "><div>第" + item.page_num +  "页<div></div>";
+		// 												$("#unrecognized").append(trTD);
+		// 											})
+		// 										}else{
+		// 											localStorage.setItem('un_clear_page_vos', JSON.stringify(e.data.un_clear_page_vos))
+		// 											document.getElementById('arrow_upb1').style.display="none"
+		// 										}
+		// 										for (var i = 0; i < e.data.suc_student_list.length; i++) {
+		// 											var trTD = "<div>" + e.data.suc_student_list[i] + "</div>";
+		// 											$("#tb").append(trTD);
+		// 										}
 												
 												
-												document.getElementById('success_num').innerText=e.data.suc_student_list.length
+		// 										document.getElementById('success_num').innerText=e.data.suc_student_list.length
 												
 												
 												
 
-												document.getElementById("all_student_num").innerText = e.data.all_student_num;
-												document.getElementById("question_nums").innerText = e.data.question_nums;
-											}
-										}
-									})
-								},2000)
-							}
+		// 										document.getElementById("all_student_num").innerText = e.data.all_student_num;
+		// 										document.getElementById("question_nums").innerText = e.data.question_nums;
+		// 									}
+		// 								}
+		// 							})
+		// 						},2000)
+		// 					}
 							
-						}
-					})
-                }
-            });
+		// 				}
+		// 			})
+  //               }
+  //           });
 
-        }
+  //       }
 
-        function asyncFailureFunc(errorCode, errorString) {
-            alert("ErrorCode: " + errorCode + "\r" + "ErrorString:" + errorString);
-        }
+  //       function asyncFailureFunc(errorCode, errorString) {
+  //           alert("ErrorCode: " + errorCode + "\r" + "ErrorString:" + errorString);
+  //       }
 
-        function btnUpload_onclick() {
-            var DWObject = Dynamsoft.WebTwainEnv.GetWebTwain('dwtcontrolContainer');
-            if (DWObject) {
-				let currentIndex = DWObject.CapCurrentIndex;
-				//扫描结束
-				document.getElementById('upload_start').style.display='block'
-				document.getElementById('upload_start1').style.display='block'
-    			document.getElementById('scan_start').style.display='none'
+  //       function btnUpload_onclick() {
+  //           var DWObject = Dynamsoft.WebTwainEnv.GetWebTwain('dwtcontrolContainer');
+  //           if (DWObject) {
+		// 		let currentIndex = DWObject.CapCurrentIndex;
+		// 		//扫描结束
+		// 		document.getElementById('upload_start').style.display='block'
+		// 		document.getElementById('upload_start1').style.display='block'
+  //   			document.getElementById('scan_start').style.display='none'
 				
 
                
-                for (var i = 0; i < DWObject.HowManyImagesInBuffer; i++) {
-                   listindex.push(i)
-                } 
-                // 
+  //               for (var i = 0; i < DWObject.HowManyImagesInBuffer; i++) {
+  //                  listindex.push(i)
+  //               } 
+  //               // 
                 
-                sessionStorage.setItem('num',o)
-               // alert(o+'oooo')
-                //没有获取到  扫描结束事件之前这里不用循环
-                // console.log('currentIndexcurrentIndexcurrentIndexcurrentIndex')
-                // console.log(o) stnum
-                // console.log(DWObject.HowManyImagesInBuffer)
+  //               sessionStorage.setItem('num',o)
+  //              // alert(o+'oooo')
+  //               //没有获取到  扫描结束事件之前这里不用循环
+  //               // console.log('currentIndexcurrentIndexcurrentIndexcurrentIndex')
+  //               // console.log(o) stnum
+  //               // console.log(DWObject.HowManyImagesInBuffer)
                 
-                	setTimeout(function(){
-                		 var nm = sessionStorage.getItem('num')
-               				 // alert(nm+'nnnnn')
-                		if(o==nm){
-                			// alert('相等的 可以上传')
-							DWObject.ConvertToBlob([listindex], EnumDWT_ImageType.IT_PDF, asyncSuccessFunc,
-							                    asyncFailureFunc);
-							}
-					},6000)
+  //               	setTimeout(function(){
+  //               		 var nm = sessionStorage.getItem('num')
+  //              				 // alert(nm+'nnnnn')
+  //               		if(o==nm){
+  //               			// alert('相等的 可以上传')
+		// 					DWObject.ConvertToBlob([listindex], EnumDWT_ImageType.IT_PDF, asyncSuccessFunc,
+		// 					                    asyncFailureFunc);
+		// 					}
+		// 			},6000)
                 
                 
  
-            }
+  //           }
 
-        }
-        btnUpload_onclick()
+  //       }
+  //       btnUpload_onclick()
 			var m = [l];
 			if (o !== undefined && o !== null) {
 				m.push("&index=");

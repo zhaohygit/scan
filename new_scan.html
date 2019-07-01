@@ -501,7 +501,7 @@
         $(".swiper-wrapper").empty()
         for (var i = 0; i < un_recognized_student_info_vos.length; i++) {
             var trTD = `<div class="swiper-slide" style="width: auto">
-                    <img style="width:464px;height:654px;" src="${un_recognized_student_info_vos.pic_url }" alt="">
+                    <img style="width:464px;height:654px;" src="${un_recognized_student_info_vos[i].pic_url }" alt="">
                 </div>`
             $(".swiper-wrapper").append(trTD);
         }
@@ -521,7 +521,7 @@
             $('.center_success').show()
             clearInterval(time)
         }
-        if(number == 5){
+        if(number == 15){
             
             if(!document.getElementById("btnScan").disabled){
                 $('.center_wait').hide()
