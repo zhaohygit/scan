@@ -323,7 +323,7 @@
                                         <img id="arrow_up2" src="Images/arrow_down.png" style="width:16px;height:9px;position: absolute;right: 18px;cursor: pointer;" alt="">
                                     </div>
                                     <div style="width: 100%;height:auto" id="tb">
-                                            <div>武盛</div>
+                                            
                                     </div>
                             
                         </div>
@@ -451,10 +451,7 @@
         $('.swiper-pagination').hide()
      })
 
-    $('#arrow_upb2').click(function(){
-        console.log(JSON.parse(localStorage.getItem('un_clear_page_vos')))
-        console.log(JSON.parse(localStorage.getItem('un_recognized_student_info_vos')))
-    })
+   
      function show_bigimg1(e) { 
        var  un_clear_page_vos =JSON.parse(localStorage.getItem('un_clear_page_vos')) 
         var swiper = new Swiper('.swiper-container', {
@@ -476,7 +473,7 @@
          for (var i = 0; i <un_clear_page_vos; i++) {
              
             var trTD = `<div class="swiper-slide" style="width: auto">
-                    <img style="width:464px;height:654px;" src="${un_clear_page_vos[i].img_url }" alt="">
+                    <img style="width:464px;height:654px;" src="${un_clear_page_vos[i].pic_url }" alt="">
                 </div>`
             $(".swiper-wrapper").append(trTD);
         }
@@ -504,7 +501,7 @@
         $(".swiper-wrapper").empty()
         for (var i = 0; i < un_recognized_student_info_vos.length; i++) {
             var trTD = `<div class="swiper-slide" style="width: auto">
-                    <img style="width:464px;height:654px;" src="${un_recognized_student_info_vos.img_url }" alt="">
+                    <img style="width:464px;height:654px;" src="${un_recognized_student_info_vos.pic_url }" alt="">
                 </div>`
             $(".swiper-wrapper").append(trTD);
         }
