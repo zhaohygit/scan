@@ -30,7 +30,6 @@ body{
     color:rgba(255,255,255,1);
     line-height: normal;
     padding-right: 17px;
-    border-right: 1px solid rgba(255,255,255,.3);
 }
 .left_title>span:nth-child(2){
     color:rgba(255,255,255,.7);
@@ -49,8 +48,7 @@ body{
     margin-top: 3%;
     display: flex;
     justify-content: space-between;
-    margin-left: 68px;
-    margin-right: 227px;
+    justify-content: center;
 }
 .center_right{
     display: flex;
@@ -285,3 +283,109 @@ button :focus{outline:0;}
     height: 100%;
     background: rgba(0,0,0,.6);;
 }
+.content_box1{
+    padding-top: 50px;
+}
+.end_title{
+    display: flex;
+    align-items: center;
+
+    margin: 0 64px ;
+    height:70px;
+    background:rgba(240,244,251,1);
+    border-radius:2px;
+    position: relative;
+}
+.back_scan{
+    width:122px;
+    height:32px;
+    line-height: 32px;
+    text-align: center;
+    background:rgba(66,125,248,1);
+    border-radius:4px;
+    opacity:0.96;font-size:14px;
+    font-family:PingFangSC-Medium;
+    font-weight:500;
+    color:rgba(255,255,255,1);
+    position: absolute;
+    right: 28px;
+    top: 19px;
+}
+.end_student{
+    padding-top: 37px;
+    display: flex;
+    margin: 0 64px ;
+    flex-direction: column;
+    align-items: center;
+}
+
+.table_top{
+    display: flex;
+    height: 36px;
+    width: 100%;
+    border-top: 1px solid rgba(222,226,233,1);
+}
+.table_top>li{
+    text-align: center;
+    line-height: 36px;
+}
+.table_top>li:nth-child(2){
+    text-align: left;
+}
+.topic{
+    display: flex;
+    height: 37px;
+    font-size:12px;
+    font-family:PingFangSC-Regular;
+    font-weight:400;
+    color:rgba(0,0,0,1);
+    border-top: 1px solid rgba(236, 239, 245, 1)
+}
+
+.topic>li{
+    line-height: 36px;
+    text-align: center;
+    
+}
+.topic>li:nth-child(2){
+    text-align: left;
+}
+.topic>li:nth-child(1){
+    font-size:12px;
+    font-family:PingFangSC-Regular;
+    font-weight:400;
+    color:rgba(0,0,0,.5);
+}
+
+.topic:last-child{
+   border-bottom: 1px solid rgba(236, 239, 245, 1)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

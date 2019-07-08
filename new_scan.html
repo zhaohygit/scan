@@ -47,7 +47,24 @@
         -ms-flex-align: center;
         -webkit-align-items: center;
         align-items: center;
-      }</style>
+      }
+      ::-webkit-scrollbar-track-piece { 
+        background-color:#f8f8f8;
+        }
+        ::-webkit-scrollbar {
+        width:6px;
+        height:6px;
+        }
+        ::-webkit-scrollbar-thumb {
+        background-color:#dddddd;
+        background-clip:padding-box;
+        min-height:28px;
+        border-radius:3px
+        }
+        ::-webkit-scrollbar-thumb:hover {
+        background-color:#bbb;
+        }
+    </style>
 <script src="Scripts/common.js?t=170607"></script>
 <script>
     if (dynamsoft.onlineNavInfo.deviceType == 'pc') {
@@ -66,31 +83,12 @@
                 <span>知师圈 </span>
                 <span>智慧教育云</span>
             </div>
-            <div style="font-size:20px;
-            font-family:PingFangSC-Medium;
-            font-weight:500;
-            color:rgba(255,255,255,1);margin-left:18px;">自动批改</div>
         </div>
 
-        <div class="content_box" id="content_box" >
-            <div class="center_t">老师好！欢迎使用试题自动批改服务</div>
+        <div class="content_box" id="content_box" style="display: none;">
+            <div class="center_t">智能批改</div>
             <div class="center_wait" id="center_wait" >
-                <div class="center_left">
-                    <div>
-                        <div style="font-size:16px;
-                        font-family:PingFangSC-Regular;
-                        font-weight:400;
-                        color:rgba(0,0,0,0.6);">请按以下步骤来进行</div>
-                        <div style="height:250px;display:flex;align-items:center;">
-                            <img src="Images/step_one.png" style="width:38px;height:154px;" alt="">
-                            <div class="step_word">
-                                <span class="pass">确认已连接到可用的扫描仪，并放置好习题卷  </span>
-                                <span  class="unpass" style="margin-top: 33px;">点击“开始自动批改”进行自动扫描并批改习题</span>
-                                <span  class="unpass" style="margin-top: 33px;">获取习题卷的批改结果</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
                 
                 <div class="center_right">
                     <div>
@@ -102,23 +100,7 @@
                 </div>
             </div>
             <div id="center_success" class="center_success"  style="display: none" >
-                <div class="center_left">
-                    <div>
-                        <div style="font-size:16px;
-                        font-family:PingFangSC-Regular;
-                        font-weight:400;
-                        color:rgba(0,0,0,0.6);">请按以下步骤来进行</div>
-                        <div style="height:250px;display:flex;align-items:center;">
-                            <img src="Images/step_two.png" style="width:38px;height:154px;" alt="">
-                            
-                            <div class="step_word">
-                                <span class="pass">确认已连接到可用的扫描仪，并放置好习题卷  </span>
-                                <span  class="pass" style="margin-top: 33px;">点击“开始自动批改”进行自动扫描并批改习题</span>
-                                <span  class="unpass" style="margin-top: 33px;">获取习题卷的批改结果</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               
                 
                 <div class="center_right" style="position: relative;right:-60px;">
                     
@@ -179,22 +161,7 @@
                 </div>
             </div>
             <div class="center_false" style="display: none" style="display: none">
-                <div class="center_left">
-                    <div>
-                        <div style="font-size:16px;
-                        font-family:PingFangSC-Regular;
-                        font-weight:400;
-                        color:rgba(0,0,0,0.6);">请按以下步骤来进行</div>
-                        <div style="height:250px;display:flex;align-items:center;">
-                            <img src="Images/step_one.png" style="width:40px;height:152px;" alt="">
-                            <div class="step_word">
-                                <span class="pass">确认已连接到可用的扫描仪，并放置好习题卷  </span>
-                                <span  class="unpass" style="margin-top: 33px;">点击“开始自动批改”进行自动扫描并批改习题</span>
-                                <span  class="unpass" style="margin-top: 33px;">获取习题卷的批改结果</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
                 
                 <div class="center_right" style="font-size:16px;
                 font-family:PingFangSC-Regular;
@@ -217,23 +184,7 @@
             </div>
 
             <div class="scan_upload" id="scan_upload" style="display: none">
-                <div class="center_left">
-                    <div>
-                        <div style="font-size:16px;
-                        font-family:PingFangSC-Regular;
-                        font-weight:400;
-                        color:rgba(0,0,0,0.6);">请按以下步骤来进行</div>
-                        <div style="height:250px;display:flex;align-items:center;">
-                            <img src="Images/step_two.png" style="width:40px;height:152px;" alt="">
-                            
-                            <div class="step_word">
-                                <span class="pass">确认已连接到可用的扫描仪，并放置好习题卷  </span>
-                                <span  class="pass" style="margin-top: 33px;">点击“开始自动批改”进行自动扫描并批改习题</span>
-                                <span  class="unpass" style="margin-top: 33px;">获取习题卷的批改结果</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
                 <div class="center_right" style="position: relative;    right: 223px;
                 top: 50px;">
                     
@@ -248,93 +199,69 @@
                         </div>
                     <div class="scan_start" id="scan_start" style="position: absolute;    width: 100px;
                     left: 55px;
-                    top: 47px;">正在扫描…</div>
-                    <div class="upload_start" id="upload_start" style="position: absolute;    width: 100px;
-                    left: 55px;
-                    top: 47px;display: none">正在批改…</div>
-                    <div class="right_bot upload_start" id="upload_start1" style="display: none">
-                        <div>
-                            <img style="width:18px;height:18px" src="Images/success_one.png" alt="">
-                            <span>扫描完成</span>
-                        </div>
-                        <!-- <div style="margin-left: 8px;margin-top:27px;">
-                            <img  style="width:18px;height:18px" src="Images/success_two.png" alt="">
-                            <span style="color:rgba(0,0,0,0.3);">扫描完成</span>
-                        </div> -->
-                    </div>
+                    top: 47px;">智能批改中…</div>
+                    
+                    
+                   
                 </div>
             </div>
         </div>
-        <div  class="content_box1" id="content_box1" style="display: none;">
-            <div style="width:1200px;    height: 100% ;background:rgba(255,255,255,1);
-               
-                border-radius:6px;
-                margin:20px auto;padding:50px 85px;box-sizing: border-box">
-                <div style="width:100%;height:100%;border:1px solid rgba(0,0,0,0.06);">
-                    <div style="width: 100%;height:17%;background:rgba(66,125,248,1);display: flex;align-items: center;position: relative;">
-                        <img src="Images/ic_yes.png" style="width: 30px;height:30px;margin:0 11px 0 32px" alt="">
-                        <span style="font-size:16px;font-family:PingFangSC-Regular;font-weight:400;color:rgba(255,255,255,1);">本次扫描的习题批改完成，共批改：</span>
-                        <div style="width: 112px;height:44px;display: flex;flex-direction: column;justify-content: space-between;align-items: center;font-size:14px;
-                        font-family:PingFangSC-Regular;
-                        font-weight:400;
-                        color:rgba(255,255,255,1);border-right:1px solid #fff">
-                            <span style=""><span style="font-size:18px" id="all_student_num"></span>人</span>
-                            <span>学生人数</span>
-                        </div>
-                        <div style="width: 112px;height:44px;display: flex;flex-direction: column;justify-content: space-between;align-items: center;font-size:14px;
-                        font-family:PingFangSC-Regular;
-                        font-weight:400;
-                        color:rgba(255,255,255,1);">
-                            <span style=""><span style="font-size:18px" id="question_nums"></span>题</span>
-                            <span>习题数</span>
-                        </div>
-                        <div id="btn" style="width:122px;height:32px;background:rgba(255,255,255,1);border-radius:4px;opacity:0.96;font-size:14px;font-family:PingFangSC-Medium;font-weight:500;color:rgba(66,125,248,1);line-height: 32px;text-align: center;position: absolute;right: 47px;top:50%;margin-top: -16px;cursor: pointer">
-                            回到首页继续
-                        </div>
-                    </div>
-                    <div style="width: 100%;height:83%;">
-                        <div style="width: 68%;height:100%;float: left;padding-right: 10px;box-sizing: border-box;overflow: auto">
-                            <div id="arrow_upb"  style="width:100%;height:18px;display: flex;align-items: center;margin-top:27px;padding-left: 33px;box-sizing: border-box;margin-bottom: 14px;position: relative;">
-                                <div style="width:5px;height:18px;background:rgba(66,125,248,1);border-radius:5px;margin-right: 12px;"></div>
-                                <div style="font-size:16px;font-family:PingFangSC-Regular;font-weight:400;color:rgba(0,0,0,1);">未识别学生信息 (<span id="unscanstu_num"></span>)</div>
-                                <div style="height:27px;background:rgba(66,125,248,0.05);border-radius:3px;font-size:12px;font-family:PingFangSC-Regular;font-weight:400;color:rgba(14,72,193,1);line-height: 27px;padding:0 10px;margin-left: 16px;">
-                                        请找出学生的习题卷查看条码是否遮挡，再重新扫描批改
-                                </div>
-                                <img id="arrow_up" src="Images/arrow_down.png" style="width:16px;height:9px;position: absolute;right: 18px;cursor: pointer;" alt="">
-                            </div>
-                            <div style="width: 100%;height:auto" id="unrecognized">
-                                    <!-- <div><img src="Images/juan.png"><div>第1张<div></div> -->
-                            </div>
-
-                            <div id="arrow_upb1" style="width:100%;height:18px;display: flex;align-items: center;margin-top:27px;padding-left: 33px;box-sizing: border-box;margin-bottom: 14px;position: relative;">
-                                    <div style="width:5px;height:18px;background:rgba(66,125,248,1);border-radius:5px;margin-right: 12px;"></div>
-                                    <div style="font-size:16px;font-family:PingFangSC-Regular;font-weight:400;color:rgba(0,0,0,1);">试题涂改不清晰 (<span id="unscanjuan_num"></span>>)</div>
-                                    <div style="height:27px;background:rgba(66,125,248,0.05);border-radius:3px;font-size:12px;font-family:PingFangSC-Regular;font-weight:400;color:rgba(14,72,193,1);line-height: 27px;padding:0 10px;margin-left: 16px;">
-                                            请找出学生的习题卷查看并修正填涂情况，如果未填涂会不得分
-                                    </div>
-                                    <img id="arrow_up1" src="Images/arrow_down.png" style="width:16px;height:9px;position: absolute;right: 18px;cursor: pointer;" alt="">
-                                </div>
-                                <div style="width: 100%;height:auto" id="blurring"></div>
-
-                                <div id="arrow_upb2" style="width:100%;height:18px;display: flex;align-items: center;margin-top:27px;padding-left: 33px;box-sizing: border-box;margin-bottom: 14px;    position: relative;">
-                                        <div style="width:5px;height:18px;background:rgba(66,125,248,1);border-radius:5px;margin-right: 12px;"></div>
-                                        <div style="font-size:16px;font-family:PingFangSC-Regular;font-weight:400;color:rgba(0,0,0,1);">批改成功的学生 (<span id="success_num"></span>)</div>
-                                        
-                                        <img id="arrow_up2" src="Images/arrow_down.png" style="width:16px;height:9px;position: absolute;right: 18px;cursor: pointer;" alt="">
-                                    </div>
-                                    <div style="width: 100%;height:auto" id="tb">
-                                            
-                                    </div>
-                            
-                        </div>
-                        <div  style="width:32%;height:100%;background:rgba(216,216,216,.1);float: left;text-align: center;">
-                            <img src="Images/ic_phone.png" style="width: 150px;height:127px;margin:65px 0 34px;" alt="">
-                            <p style="font-size:14px;margin:0;line-height:30px;font-family:PingFangSC-Regular;font-weight:400;color:rgba(0,0,0,1);">所有学生的习题卷扫描完成后,<br/>请联系工作人员获取完整的批改结果</p>
-                        </div>
-                    </div>
-                    
+        <div  class="content_box1" id="content_box1" >
+            <div class="end_title">
+                <img src="Images/ic_yes.png" alt="" style="width:30px;height:30px;margin-left: 44px;margin-right: 12px;">
+                <span style="font-size:28px;
+                font-family:PingFangSC-Regular;
+                font-weight:400;
+                color:rgba(0,0,0,1);">批改完成</span>
+                <div style="width:1px;
+                height:30px;background:rgba(0, 0, 0, .1);margin-left: 38px;margin-right: 31px;"></div>
+                <div class="bad" style="font-size:14px;
+                font-family:PingFangSC-Regular;
+                font-weight:400;
+                color:rgba(0,0,0,1);">
+                    本次练习涉及
+                    <span class="zs_num"></span>
+                    个知识点，知识点掌握度不够，还需继续努力！
+                </div>
+                <div class="good" style="font-size:14px;
+                font-family:PingFangSC-Regular;
+                font-weight:400;
+                color:rgba(0,0,0,1);">
+                    本次练习涉及
+                    <span class="zs_num"></span>
+                    个知识点，知识点掌握度有进步，请再接再厉！
+                </div>
+                
+                <div class="back_scan" >
+                    继续批改
                 </div>
             </div>
+
+            <div class="end_student" style="height:100%;">
+                <div style="font-size:16px;
+                font-family:PingFangSC-Regular;
+                font-weight:400;
+                color:rgba(0,0,0,1);margin-bottom: 13px;">学生姓名： <span class="student_name"></span></div>
+
+                <div style="width:100%;">
+                    <ul class="table_top" style="font-size:12px;
+                    font-family:PingFangSC-Regular;
+                    font-weight:400;
+                    color:rgba(0,0,0,.5);">
+                        <li style="flex:81;margin-left: 20px;">题号</li>
+                        <li style="flex:291">考察知识点</li>
+                        <li style="flex:190">正确答案</li>
+                        <li style="flex:190">学生回答</li>
+                        <li style="flex:190;    padding-right: 6px;">批改结果</li>
+                    </ul>
+                </div>
+                <div style="width: 100%;height: 60%;overflow-y: scroll;overflow-x: hidden" class="topicList">
+                    
+    
+                </div>
+            </div>
+
+            
         </div>
     </div>
  <div id="wrapper" style="display:none">
@@ -354,39 +281,39 @@
         </div>
     </div>
 </div>
-   <div class="big_img"  style="position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    display: none;
-    "> 
-    <div class="mc" style="position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;background: rgba(0,0,0,0.3)"></div>
-    <div class="swiper-container" style="    width: 45%;
-        height: auto;
-        background: none;
-        margin-top: 7%;
-        overflow-x: hidden;
-    ">
-            <div class="swiper-wrapper">
-                
-            </div>
-            <!-- Add Arrows -->
+<div class="big_img"  style="position: absolute;
+width: 100%;
+height: 100%;
+left: 0;
+top: 0;
+display: none;
+"> 
+<div class="mc" style="position: absolute;
+width: 100%;
+height: 100%;
+left: 0;
+top: 0;background: rgba(0,0,0,0.3)"></div>
+<div class="swiper-container" style="    width: 45%;
+    height: auto;
+    background: none;
+    margin-top: 7%;
+    overflow-x: hidden;
+">
+        <div class="swiper-wrapper">
             
-            <div class="swiper-button-next" style="background: none;    right: 7%;" >
-                <img src="Images/icon_right.png" style="width: 70px;height:70px;" alt="">
-            </div>
-            <div class="swiper-button-prev" style="left: 0;background: none">
-                    <img src="Images/icon_left.png" style="width: 70px;height:70px;"  alt="">
-            </div>
-        </div> 
-    </div>
+        </div>
+        <!-- Add Arrows -->
+        
+        <div class="swiper-button-next" style="background: none;    right: 7%;" >
+            <img src="Images/icon_right.png" style="width: 70px;height:70px;" alt="">
+        </div>
+        <div class="swiper-button-prev" style="left: 0;background: none">
+                <img src="Images/icon_left.png" style="width: 70px;height:70px;"  alt="">
+        </div>
+    </div> 
+</div>
 
-    <div class="swiper-pagination" style=" display: none; width:73px;height:28px;   top: 7%;color:#fff;margin:0 auto;background: #7BA6FF;border-radius:4px;    left: 47%;"></div>
+<div class="swiper-pagination" style=" display: none; width:73px;height:28px;   top: 7%;color:#fff;margin:0 auto;background: #7BA6FF;border-radius:4px;    left: 47%;"></div>
 
     
           <!-- Swiper JS -->
@@ -441,7 +368,7 @@
         }
     });
 
-    
+
     $('#btn').click(function(){
        location.reload()
         
@@ -450,7 +377,8 @@
         $('.big_img').hide()
         $('.swiper-pagination').hide()
      })
-
+     
+     
    
      function show_bigimg1(e) { 
        var  un_clear_page_vos =JSON.parse(localStorage.getItem('un_clear_page_vos')) 
@@ -536,7 +464,9 @@
         }
         
     },1000)
-
+    $('.back_scan').click(function () { 
+        location.reload()
+     })
     $('.backsao').click(function(){
         $('.center_wait').show()
         $('.center_false').hide()
