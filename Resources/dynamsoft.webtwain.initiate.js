@@ -16013,11 +16013,12 @@ var EnumDWT_Error = {
 							console.log(e)
 							//扫描结束
 							if(e.code == 0){
-								document.getElementById('upload_start').style.display='block'
-								document.getElementById('scan_start').style.display='none'
+								
 								var dispose_time = 0
 								var time = setInterval(function () { 
 									dispose_time = dispose_time+5
+									document.getElementById('content_box').style.display="none"
+									document.getElementById('content_box1').style.display="block"
 									$.ajax({
 
 										url:'https://zhihuotech.com/insight/paper/result2?exe_id='+e.data.exe_id,
@@ -16054,8 +16055,7 @@ var EnumDWT_Error = {
 																</ul>`
 													$(".topicList").append(trTD);
 												})
-												document.getElementById('content_box').style.display="none"
-												document.getElementById('content_box1').style.display="block"
+												
 												
 											}
 										}
