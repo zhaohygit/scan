@@ -16017,8 +16017,7 @@ var EnumDWT_Error = {
 								var dispose_time = 0
 								var time = setInterval(function () { 
 									dispose_time = dispose_time+5
-									document.getElementById('content_box').style.display="none"
-									document.getElementById('content_box1').style.display="block"
+									
 									$.ajax({
 
 										url:'https://zhihuotech.com/insight_dev/paper/result2?exe_id='+e.data.exe_id,
@@ -16028,7 +16027,8 @@ var EnumDWT_Error = {
 										success:function(e){
 											console.log(e)
 											if(e.data.status == 1){
-												
+												document.getElementById('content_box').style.display="none"
+												document.getElementById('content_box1').style.display="block"
 												clearInterval(time)
 												
 												if(e.data.right_rate>=60){
