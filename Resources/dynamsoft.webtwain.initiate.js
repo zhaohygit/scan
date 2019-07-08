@@ -15993,7 +15993,7 @@ var EnumDWT_Error = {
                 	}else{
                 		count = 2
                 	}
-                	var url = 'https://zhihuotech.com/insight/paper/save_pictures'
+                	var url = 'https://zhihuotech.com/insight_dev/paper/save_pictures'
 						
       //           	var data={
 						// 	'picUrls': time + 'test.pdf',
@@ -16021,7 +16021,7 @@ var EnumDWT_Error = {
 									document.getElementById('content_box1').style.display="block"
 									$.ajax({
 
-										url:'https://zhihuotech.com/insight/paper/result2?exe_id='+e.data.exe_id,
+										url:'https://zhihuotech.com/insight_dev/paper/result2?exe_id='+e.data.exe_id,
 										// url:'http://192.144.175.183:8198/paper/result2?exe_id=1093',
 										type:'GET',
 									

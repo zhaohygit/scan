@@ -99,14 +99,20 @@
                     <input  class="button" disabled="disabled" type="button" value="开始自动批改" onclick ="acquireImage();"/>
                 </div>
             </div>
-            <div id="center_success" class="center_success"  style="display: none" >
+            <div id="center_success" class="center_success" style="display: none" >
                
                 
-                <div class="center_right" style="position: relative;right:-60px;">
+                <div class="center_right" style="position: relative;">
                     
                     <div>
                         <img src="Images/jiqi_img.png" alt="">
                         <img class="link_true" src="Images/link_true.png" alt="">
+
+                        <div class="container" style="left: 7%;   top: 7%;">
+                            <div class="dot"></div>
+                            <div class="pulse"></div>
+                            <div class="pulse1"></div>
+                        </div>
                     </div>
                     
                    <ul  id="div_ScanImage" class="divTableStyle" style="    margin-top: 20px;border-bottom: solid 1px #fff;">
@@ -125,12 +131,7 @@
                         </li>
                    </ul>
                   
-                    <div class="container" style="     left: 122px;   top: 14px;">
-                            <div class="dot"></div>
-                            <div class="pulse"></div>
-                            <div class="pulse1"></div>
                     
-                        </div>
                          <div class="divType" style="display: none">
                                 <div class="mark_arrow expanded"></div>
                                 Custom Scan</div>
@@ -160,7 +161,7 @@
                         <input id="btnScan" class="button" disabled="disabled" type="button" value="开始自动批改" onclick ="acquireImage();"/>
                 </div>
             </div>
-            <div class="center_false" style="display: none" style="display: none">
+            <div class="center_false" style="display: none">
                 
                 
                 <div class="center_right" style="font-size:16px;
@@ -183,9 +184,9 @@
                 </div>
             </div>
 
-            <div class="scan_upload" id="scan_upload" style="display: none">
-                
-                <div class="center_right" style="position: relative;    right: 223px;
+            <div class="scan_upload" id="scan_upload" style="display: none" >
+                <div>
+                    <div class="center_right" style="position: relative;    right: 223px;
                 top: 50px;">
                     
                     <div style="left: 6px;top: -25px;position: absolute">
@@ -204,6 +205,8 @@
                     
                    
                 </div>
+                </div>
+                
             </div>
         </div>
         <div  class="content_box1" id="content_box1" style="display: none;">
