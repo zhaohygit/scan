@@ -16021,8 +16021,8 @@ var EnumDWT_Error = {
 									
 									$.ajax({
 
-										// url:'https://zhihuotech.com/insight/paper/result2?exe_id='+e.data.exe_id,
-										url:'http://192.144.175.183:8198/paper/result2?exe_id=1093',
+										url:'https://zhihuotech.com/insight/paper/result2?exe_id='+e.data.exe_id,
+										// url:'http://192.144.175.183:8198/paper/result2?exe_id=1093',
 										type:'GET',
 									
 										success:function(e){
