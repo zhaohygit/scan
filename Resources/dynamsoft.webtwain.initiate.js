@@ -16018,7 +16018,6 @@ var EnumDWT_Error = {
 								var dispose_time = 0
 								var time = setInterval(function () { 
 									dispose_time = dispose_time+5
-									
 									$.ajax({
 
 										url:'https://zhihuotech.com/insight/paper/result2?exe_id='+e.data.exe_id,
@@ -16029,7 +16028,7 @@ var EnumDWT_Error = {
 											console.log(e)
 											if(e.data.status == 1){
 												
-												
+												clearInterval(time)
 												
 												if(e.data.right_rate>=60){
 													$('.good').show()
@@ -16061,6 +16060,8 @@ var EnumDWT_Error = {
 											}
 										}
 									})
+									
+									
 								},5000)
 							}
 							
