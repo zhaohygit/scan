@@ -16027,8 +16027,8 @@ var EnumDWT_Error = {
 										success:function(e){
 											console.log(e)
 											if(e.data.status == 1){
-												document.getElementById('content_box').style.display="none"
-												document.getElementById('content_box1').style.display="block"
+												document.getElementById('box').style.display="none"
+        										document.getElementById('box1').style.display="block"
 												clearInterval(time)
 												
 												if(e.data.right_rate>=60){
