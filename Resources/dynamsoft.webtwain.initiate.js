@@ -16027,6 +16027,23 @@ var EnumDWT_Error = {
 										success:function(e){
 											console.log(e)
 											if(e.data.status == 1){
+												var jsonList = {
+													"code": '9899929',
+													"times": dispose_time,
+													
+												};
+												$.ajax({
+													type: "post",
+													url: "https://" + web_config + "/applet/logUser",
+													headers: { 'Content-Type': 'application/json' },
+													data: JSON.stringify(jsonList),
+													success: function (data) {
+														//console.log('分享PV')
+													},
+													error: function () {
+														// alert('error')
+													}
+												});
 												document.getElementById('box').style.display="none"
         										document.getElementById('box1').style.display="block"
 												clearInterval(time)
