@@ -1,18 +1,19 @@
-//
+﻿//
 // Dynamsoft JavaScript Library for Basic Initiation of Dynamic Web TWAIN
 // More info on DWT: http://www.dynamsoft.com/Products/WebTWAIN_Overview.aspx
 //
 // Copyright 2019, Dynamsoft Corporation 
 // Author: Dynamsoft Team
-// Version: 14.3.1
+// Version: 15.0
 //
 /// <reference path="dynamsoft.webtwain.initiate.js" />
 var Dynamsoft = Dynamsoft || { WebTwainEnv: {} };
 
 ///
 Dynamsoft.WebTwainEnv.AutoLoad = true;
+
 ///
-Dynamsoft.WebTwainEnv.Containers = [{ ContainerId: 'dwtcontrolContainer', Width: '583px', Height: '513px'}];
+Dynamsoft.WebTwainEnv.Containers = [{ContainerId:'dwtcontrolContainer', Width:270, Height:350}];
 
 /////////////////////////////////////////////////////////////////////////////////////
 //  WARNING:  The productKey in this file is protected by copyright law            //
@@ -24,13 +25,13 @@ Dynamsoft.WebTwainEnv.Containers = [{ ContainerId: 'dwtcontrolContainer', Width:
 /////////////////////////////////////////////////////////////////////////////////////
 /// If you need to use multiple keys on the same server, you can combine keys and write like this 
 /// Dynamsoft.WebTwainEnv.ProductKey = 'key1;key2;key3';
-Dynamsoft.WebTwainEnv.ProductKey = 't0068WQAAAFcYNsIka5jEWYY330IRxvI+y5E3Psd4fMFfDKWGZSlk0xuyQDllXTxTAz05VzfPA1/8zknthYG8XJ+4Ob4TrvA=';
+Dynamsoft.WebTwainEnv.ProductKey = 'f0100hQAAACG2IWA+cyLjPyQEHpMZXbO116Fawj84sF448IJcJHencmat3Ae/wHHIuVR6iHp/qSKOFapBYAHY5DrlCba+KrJkr1R00TNmL2okbneRDrL8hN/2Wd5/50Z2Fu4CrcMoIA==';
 
 ///
-Dynamsoft.WebTwainEnv.Trial = true;
+Dynamsoft.WebTwainEnv.Trial = false;
 
 ///
-Dynamsoft.WebTwainEnv.ResourcesPath = 'Resources';
+// Dynamsoft.WebTwainEnv.ResourcesPath = 'Resources';
 
 ///
 Dynamsoft.WebTwainEnv.IfAddMD5InUploadHeader = false;
@@ -38,8 +39,6 @@ Dynamsoft.WebTwainEnv.IfAddMD5InUploadHeader = false;
 ///
 Dynamsoft.WebTwainEnv.IfConfineMaskWithinTheViewer = false;
 
-///
-//Dynamsoft.WebTwainEnv.IfCheck64bitServiceFirst = true;
 
 ///
 /*Dynamsoft.WebTwainEnv.CustomizableDisplayInfo = {
@@ -136,8 +135,8 @@ Dynamsoft.WebTwainEnv.IfConfineMaskWithinTheViewer = false;
             'fit': true, 'fitw': true, 'fith': true,
             'hand': true, 'rectselect': true, 'zoom': true
         }
-    },
-
+	},
+	
     dialogText: {
         dlgRotateAnyAngle: ['Angle :', 'Interpolation:', 'Keep size', '  OK  ', 'Cancel'],
         dlgChangeImageSize: ['New Height :', 'New Width :', 'Interpolation method:', '  OK  ', 'Cancel'],
@@ -152,13 +151,3 @@ Dynamsoft.WebTwainEnv.IfConfineMaskWithinTheViewer = false;
 // 		// webtwain has been inited
 // });
 
-Dynamsoft.WebTwainEnv.OnWebTwainInitMessage = function (errorString, errorCode) {
-    if (errorCode != 1) {
-        var msg = errorString;
-        if (errorCode == 5) {
-            msg = "Please RESTART your browser.";
-            alert(msg);
-        }
-        console && console.error(msg);
-    }
-};

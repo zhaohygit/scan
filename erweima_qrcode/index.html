@@ -1,0 +1,54 @@
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> -->
+<html >
+<head>
+<title>zhihuotech</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+<script type="text/javascript" src="./jquery.min.js"></script>
+<script type="text/javascript" src="./qrcode.js"></script>
+</head>
+<body>
+<div id="qrcode" style="width:100%; height:100%; "></div>
+
+ <script language="javascript" type="text/javascript">
+	var qrcode = new QRCode(document.getElementById("qrcode"), {
+		width : 210,
+		height : 210
+	});
+ 	function test(){
+      console.log(11111111111111111111)
+       var an = window.location.href;
+	    console.log(an)
+	    console.log(an.split("code="))
+	    var erweima_url = an.split("code=")[1]
+	    console.log(erweima_url)
+		qrcode.clear();
+		// qrcode.makeCode('https://www.zhihuotech.com/mini?code='+'common_card_code_download_221.221.233.50_0.4971393852295358');
+		qrcode.makeCode('https://www.zhihuotech.com/mini?code='+erweima_url);
+    }
+    test()
+
+	function makeCode(){
+	    var an = window.location.href;
+	    // console.log(an)
+	    // console.log(an.split("code="))
+	    // var erweima_url = an.split("code=")[1]
+	    // console.log(erweima_url)
+		qrcode.clear();//https://www.zhihuotech.com/mini?code=123
+		qrcode.makeCode('https://www.zhihuotech.com/mini?code='+erweima_url);
+	}
+	// makeCode()
+// makeCode();
+
+// $("#text").
+// 	on("blur", function () {
+// 		makeCode();
+// 	}).
+// 	on("keydown", function (e) {
+// 		if (e.keyCode == 13) {
+// 			makeCode();
+// 		}
+// 	});
+</script>
+</body>
+</html>

@@ -27,17 +27,29 @@ function dwt_change_install_url(url) {
 }
 
 function DCP_DWT_onclickInstallButton(el) {
-	if (el)
-		el.style.display = 'none';
-	var install = document.getElementById('dwt-install-url-div');
-	if (install)
-		install.style.display = 'none';
+	setTimeout(function(){
+		if (el) {
+			el.innerHTML = '<div class="dynamsoft-dwt-dlg-button" style="width:180px">Reconnect to the service</div>';
+			if(!el.data) {
+				el.data = 1;		
+			} else {
+				// Reconnect to the service
+				Dynamsoft.WebTwainEnv.ConnectToTheService();
+				
+			}
+		}
+		
+		var install = document.getElementById('dwt-install-url-div');
+		if (install)
+			install.style.display = 'none';
+	},0);
+	return true;
 }
 
 function _show_install_dialog(ProductName, objInstallerUrl, bHTML5, iPlatform, bIE, bSafari, bSSL, strIEVersion) {
 	var ObjString, title, browserActionNeeded;
 
-		title = 'Please complete one-time setup';
+		title = '请完成下载';
 
 	ObjString = [
 		'<div class="dynamsoft-dwt-dlg-title">',
@@ -55,9 +67,9 @@ function _show_install_dialog(ProductName, objInstallerUrl, bHTML5, iPlatform, b
 		ObjString.push('<img style="margin: 0px 134px 0px 0px" src=' + imagesInBase64.icn_download + ' alt="download">');
 		ObjString.push('<img style="margin: 2px 132px 2px 0px" src=' + imagesInBase64.icn_install + ' alt="install">');
 		ObjString.push('<img src=' + imagesInBase64.icn_scan + ' alt="scan">');
-		ObjString.push('<div><span class="dynamsoft-dwt-installdlg-text" style="right: 125px">Download</span>');
-		ObjString.push('<span class="dynamsoft-dwt-installdlg-text" style="right: 18px">Install</span>');
-		ObjString.push('<span class="dynamsoft-dwt-installdlg-text" style="left: 105px">Scan</span>');
+		ObjString.push('<div><span class="dynamsoft-dwt-installdlg-text" style="right: 133px">下载</span>');
+		ObjString.push('<span class="dynamsoft-dwt-installdlg-text" >安装</span>');
+		ObjString.push('<span class="dynamsoft-dwt-installdlg-text" style="left: 132px">扫描</span>');
 		ObjString.push('</div>');
 		ObjString.push('</div>');
 
@@ -67,7 +79,7 @@ function _show_install_dialog(ProductName, objInstallerUrl, bHTML5, iPlatform, b
 	}
 	ObjString.push('<a id="dwt-btn-install" target="_blank" href="');
 	ObjString.push(objInstallerUrl['default']);
-	ObjString.push('" onclick="DCP_DWT_onclickInstallButton(this)"><div class="dynamsoft-dwt-dlg-button">Download</div></a>');
+	ObjString.push('" onclick="DCP_DWT_onclickInstallButton(this)"><div class="dynamsoft-dwt-dlg-button">下载</div></a>');
 	if (bHTML5) {
 		if (bIE) {
 			ObjString.push('<div class="dynamsoft-dwt-dlg-tail" style="text-align:left; padding-left: 80px">');
@@ -78,9 +90,6 @@ function _show_install_dialog(ProductName, objInstallerUrl, bHTML5, iPlatform, b
 			ObjString.push('</div>');
 
 		} else {
-			ObjString.push('<div class="dynamsoft-dwt-dlg-tail">');
-			ObjString.push('<div class="dynamsoft-dwt-dlg-red">After the installation, please <strong>' + browserActionNeeded + '</strong>  your browser.</div>');
-			ObjString.push('</div>');
 		}
 
 	} else {
@@ -174,22 +183,20 @@ function OnWebTwainNeedUpgradeCallback(ProductName, objInstallerUrl, bHTML5, iPl
 		ObjString.push('<div class="dynamsoft-dwt-dlg-red">Please EXIT Internet Explorer before you install the new version.</div>');
 	}
 	else if (bPlugin) {
-		ObjString.push('<div class="dynamsoft-dwt-dlg-red">After the installation, please RESTART your browser.</div>');
 	}
 	else {
 		ObjString.push('A newer version of the scan service is available on this page. <br /> Please download and update now.');
-		ObjString.push('<div class="dynamsoft-dwt-dlg-red">After the installation, please <strong>' + browserActionNeeded + '</strong>  your browser.</div>');
 	}
 	ObjString.push('</div>');
 	Dynamsoft.WebTwainEnv.ShowDialog(promptDlgWidth, 0, ObjString.join(''), false, bForceUpgrade);
 }
 
 function OnWebTwainPreExecuteCallback() {
-	Dynamsoft.WebTwainEnv.OnWebTwainPreExecute();
+	// Dynamsoft.WebTwainEnv.OnWebTwainPreExecute();
 }
 
 function OnWebTwainPostExecuteCallback() {
-	Dynamsoft.WebTwainEnv.OnWebTwainPostExecute();
+	// Dynamsoft.WebTwainEnv.OnWebTwainPostExecute();
 }
 
 function OnRemoteWebTwainNotFoundCallback(ProductName, ip, port, bSSL) {

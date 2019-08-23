@@ -78,7 +78,12 @@ function mediaType_onchange() {
 // }
 //  Dynamsoft_OnReady();
 /*-----------------Acquire Image---------------------*/
-
+// var DeviceConfig = {
+//     IfShowUI: false,
+//     IfGetImageInfo: false,
+//     IfGetExtImageInfo: false
+// };
+// DWObject.AcquireImage(DeviceConfig, AsyncSuccessFunc, AsyncFailureFunc);
 function acquireImage()
 {
     sessionStorage.setItem("num",0);
@@ -87,9 +92,9 @@ function acquireImage()
     // alert(DWObject.IfDuplexEnabled)
     // IfUseTwainDSM = true;
     console.log('开始扫描')
-    var old_date = new Date()
-    old_date = old_date.getTime()
-    localStorage.setItem('old_date', old_date)
+    var date = new Date();
+    var time = date.getTime();
+    localStorage.setItem('old_date', time)
     document.getElementById('scan_upload').style.display='flex'
     document.getElementById('center_success').style.display='none'
     
@@ -100,29 +105,39 @@ function acquireImage()
     DWObject.SelectSourceByIndex(cIndex);
     DWObject.CloseSource();
     DWObject.OpenSource();
-    DWObject.IfShowUI = document.getElementById("ShowUI").checked;
+    DWObject.IfShowIndicator = false;//显示 页数
+    DWObject.IfShowUI = false;
+    // DWObject.IfShowUI = false   不启动UI
+   // DWObject.IfShowUI = document.getElementById("ShowUI").checked;
     //使用双面还是单面扫描  true双面，false单面
+    if(DWObject.IfFeederLoaded==true){
+        document.getElementById('scan_upload').style.display='flex'
+        document.getElementById('center_success').style.display='none'
+    }else{
+        document.getElementById('scan_upload').style.display='none'
+        document.getElementById('center_success').style.display='flex'
+    }
     DWObject.IfDuplexEnabled = false;
-    var i;
+    /*var i;
     for (i = 0; i < 3; i++) {
         if (document.getElementsByName("PixelType").item(i).checked == true)
             DWObject.PixelType = i;
-    }
+    }*/
     if(DWObject.ErrorCode != 0)
     {
         appendMessage('<b>Error setting PixelType value: </b>');
         appendMessage("<span style='color:#cE5E04'><b>" + DWObject.ErrorString + "</b></span><br />");
     }
-    DWObject.Resolution = document.getElementById("Resolution").value;
+    //DWObject.Resolution = document.getElementById("Resolution").value;
     if(DWObject.ErrorCode != 0)
     {
         appendMessage('<b>Error setting Resolution value: </b>');
         appendMessage("<span style='color:#cE5E04'><b>" + DWObject.ErrorString + "</b></span><br />");
     }
     
-    var bADFChecked = document.getElementById("ADF").checked;
-    DWObject.IfFeederEnabled = bADFChecked;
-    if(bADFChecked == true && DWObject.ErrorCode != 0)
+    //var bADFChecked = document.getElementById("ADF").checked;
+    //DWObject.IfFeederEnabled = bADFChecked;
+    /*if(bADFChecked == true && DWObject.ErrorCode != 0)
     {
         appendMessage('<b>Error setting ADF value: </b>');
         appendMessage("<span style='color:#cE5E04'><b>" + DWObject.ErrorString + "</b></span><br />");
@@ -137,7 +152,7 @@ function acquireImage()
         appendMessage("<span style='color:#cE5E04'><b>" + DWObject.ErrorString + "</b></span><br />");
     }
     if (Dynamsoft.Lib.env.bWin || (!Dynamsoft.Lib.env.bWin && DWObject.ImageCaptureDriverType == 0))
-        appendMessage("Pixel Type: " + DWObject.PixelType + "<br />Resolution: " + DWObject.Resolution + "<br />");
+        appendMessage("Pixel Type: " + DWObject.PixelType + "<br />Resolution: " + DWObject.Resolution + "<br />");*/
     DWObject.IfDisableSourceAfterAcquire = true;
     DWObject.AcquireImage();
 }
@@ -438,17 +453,17 @@ function btnSave_onclick() {
 // else //succeded
 // alert("Image Uploaded successfully");
 // }
-        function asyncSuccessFunc(result) {
-            console.log(result.size);
-            console.log(result);
-            var date = new Date();
-            var time = date.getTime();
-            console.log(DWObject)         
-            cos.putObject({
+    function asyncSuccessFunc(result) {
+        console.log(result.size);
+        console.log(result);
+        var date = new Date();
+        var time = date.getTime();
+        console.log(DWObject)         
+       cos.putObject({
                 Bucket: img_Bucket,
                 Region: Region,
-                Key: time + 'test.tif',
-                Body: result,//arr[index],
+                Key:'/insightPaper/'+ time + 'test.pdf',
+                Body: result,//arr[index], 
                 onHashProgress: function (progressData) {
                     console.log('校验中', JSON.stringify(progressData));
                 },
@@ -456,30 +471,31 @@ function btnSave_onclick() {
                         console.log(progressData);
                 },
             }, function (err, data) {
-                console.log(data||err)
-            });
+            console.log(data||err);
+        });
 
-        }
+    }
 
-        function asyncFailureFunc(errorCode, errorString) {
-            alert("ErrorCode: " + errorCode + "\r" + "ErrorString:" + errorString);
-        }
+    function asyncFailureFunc(errorCode, errorString) {
+        alert("ErrorCode: " + errorCode + "\r" + "ErrorString:" + errorString);
+    }
 
-        function btnUpload_onclick() {
-            var DWObject = Dynamsoft.WebTwainEnv.GetWebTwain('dwtcontrolContainer');
-            if (DWObject) {
-                let currentIndex = DWObject.CapCurrentIndex;
-                let listindex = [];
-                for (var i = 0; i < DWObject.HowManyImagesInBuffer; i++) {
-                   listindex.push(i)
-                }
-                console.log(currentIndex)
-                DWObject.ConvertToBlob(listindex, EnumDWT_ImageType.IT_TIF, asyncSuccessFunc,
-                    asyncFailureFunc);
- 
+    function btnUpload_onclick() {
+        // var DWObject = Dynamsoft.WebTwainEnv.GetWebTwain('dwtcontrolContainer');
+        // if (DWObject) {
+            console.log('oppppppppppppppppp');
+            let currentIndex = DWObject.CapCurrentIndex;
+            let listindex = [];
+            for (var i = 0; i < DWObject.HowManyImagesInBuffer; i++) {
+               listindex.push(i)
             }
+            console.log(currentIndex)
+            DWObject.ConvertToBlob(listindex, EnumDWT_ImageType.IT_PDF, asyncSuccessFunc,
+                asyncFailureFunc);
 
-        }
+        // }
+
+    }
 
 // function btnUpload_onclick() {
 //     if (!checkIfImagesInBuffer()) {
@@ -718,7 +734,225 @@ function rd_onclick() {
     _chkMultiPagePDF.disabled = true;
 }
 
+        function asyncSuccessFunc(result) {
+            console.log(result.size);
+            console.log(result);
+            var date = new Date();
+            var time = date.getTime();
+            // var web_config = "zhihuotech.com/dev";
+            var web_config = ""
+            var an1 = window.location.href;  
+                        
+               
+            if(an1.indexOf("www.ezsq") != -1){                 
+               web_config = 'https://www.ezsq.cn/p'
+                console.log(1111)
+            }else if(an1.indexOf("zhihuotech")!=-1){
+                web_config = 'https://zhihuotech.com/dev'
+            }else{
+               web_config = 'https://ezsq.cn/p'
+                console.log(22222222)
+            }
+            var old_date = localStorage.getItem('old_date')
+            var jsonList = {
+                "code": '989991',
+                "times": time - old_date
+            };
+            $.ajax({
+                type: "post",
+                url: web_config + "/applet/logUser",
+                headers: { 'Content-Type': 'application/json' },
+                data: JSON.stringify(jsonList),
+                success: function (data) {
+                    // alert('success')
+                },
+                error: function (err) {
+                    // alert(JSON.stringify(err))
+                }
+            });
+            console.log(DWObject)         
+            cos.putObject({
+                Bucket: img_Bucket,
+                Region: Region,
+                Key:'/insightPaper/'+ time + 'test.pdf',
+                Body: result,//arr[index],
+                onHashProgress: function (progressData) {
+                    console.log('校验中', JSON.stringify(progressData));
+                },
+                onProgress: function (progressData) {
+                        console.log(progressData);
+                },
+            }, function (err, data) {
+                console.log(data||err)
+                var an = window.location.href;  
+                console.log('ananananananananananan')
+                console.log(an)
+                var a = '';           
+                if(an.indexOf("zhihuotech") != -1){
+                       a = 'https://zhihuotech.com/insight_dev'
+                } else{
+                    if(an.indexOf("www") != -1){                 
+                       a = 'https://www.ezsq.cn/insight'
+                        console.log(1111)
+                    }else{
+                       a = 'https://ezsq.cn/insight'
+                        console.log(22222222)
+                    }
+                }
+                
+                 if(data.statusCode == 200){
 
+
+
+                    var url = a+'/paper/save_pictures'
+                        
+                    $.ajax({
+                        url:url,
+                        type:'POST',
+                        data:{
+                            'picUrls': 'https://images-dev-1256880427.cos.ap-beijing.myqcloud.com/insightPaper/'+time + 'test.pdf',
+                            'type':1,
+                            'pages':DWObject.HowManyImagesInBuffer
+                        },
+                        success:function(e){
+                            console.log(e)
+                            //扫描结束
+                            if(e.code == 0){
+                                var date = new Date();
+                                var time = date.getTime();
+                                localStorage.setItem('old_date1', time)
+                                
+
+                                document.getElementById('upload_start').style.display='block'
+                                document.getElementById('upload_start1').style.display='block'
+                                document.getElementById('scan_start').style.display='none'
+
+                                var time = setInterval(function () { 
+                                    
+                                    $.ajax({
+                                        url:a+'/paper/result?exe_id='+e.data.exe_id,
+                                        // url:'https://zhihuotech.com/insight/paper/result?exe_id=1176',
+                                        type:'GET',
+                                        success:function(e){
+                                            if(e.data.status == 1){
+                                                var date1 = new Date();
+                                                var time1 = date1.getTime();
+                                                var old_date1 = localStorage.getItem('old_date1')
+                                                var jsonList = {
+                                                    "code": '989992',
+                                                    "times": time1 - old_date1
+                                                };
+                                                $.ajax({
+                                                    type: "post",
+                                                    url: web_config + "/applet/logUser",
+                                                    headers: { 'Content-Type': 'application/json' },
+                                                    data: JSON.stringify(jsonList),
+                                                    success: function (data) {
+                                                        // alert('success')
+                                                    },
+                                                    error: function (err) {
+                                                        // alert(JSON.stringify(err))
+                                                    }
+                                                });
+                                                localStorage.setItem('un_recognized_student_info_vos', JSON.stringify(e.data.un_recognized_student_info_vos))
+                                                clearInterval(time)
+                                                document.getElementById('content_box').style.display="none"
+                                                document.getElementById('content_box1').style.display="block"
+
+                                                for (var i = 0; i < e.data.suc_student_list.length; i++) {
+                                                    var trTD = "<div class='stu_name' style='    width: 25%;text-align: center;'>" + e.data.suc_student_list[i] + "</div>";
+                                                    $("#tb").append(trTD);
+                                                
+                                                }
+                                                document.getElementById('unscanstu_num').innerText=e.data.un_recognized_student_info_vos.length
+                                            
+                                                document.getElementById('success_num').innerText=e.data.suc_student_list.length
+                                                if(e.data.un_recognized_student_info_vos.length>0){
+                                                    
+                                                    e.data.un_recognized_student_info_vos.map((item,index)=>{
+                                                        var trTD = "<div onclick='show_bigimg("+index+")'><img src=" + item.pic_url + "><div>第" + item.page_num +  "页<div></div>";
+                                                        $("#unrecognized").append(trTD);
+                                                    })
+                                                }else{
+                                                    $('.leftbox').hide()
+                                                    $('.rightbox').addClass('rightbox1').removeClass('rightbox')
+                                                    $('.content_box2').addClass('content_box3').removeClass('content_box2')
+                                                }
+                                            }
+                                        }
+                                    })
+                                },3000)
+                            }
+                            
+                        }
+                    })
+                }
+            });
+
+        }
+
+        function asyncFailureFunc(errorCode, errorString) {
+             var an1 = window.location.href;  
+                var web_config = '';
+                    
+                if(an1.indexOf("www.ezsq") != -1){                 
+                   web_config = 'https://www.ezsq.cn/p'
+                    console.log(1111)
+                }else if(an1.indexOf("zhihuotech")!=-1){
+                    web_config = 'https://zhihuotech.com/dev'
+                }else{
+                   web_config = 'https://ezsq.cn/p'
+                    console.log(22222222)
+                }
+                var jsonList = {
+                    "code": '989995',
+                    'errorCode': errorCode,
+                    'errorString': errorString
+                };
+                console.log(jsonList)
+                console.log(n)
+                $.ajax({
+                    type: "post",
+                    url: web_config + "/applet/logUser",
+                    headers: { 'Content-Type': 'application/json' },
+                    data: JSON.stringify(jsonList),
+                    success: function (data) {
+                        console.log('success')
+                    },
+                    error: function (err) {
+                        console.log(JSON.stringify(err))
+                    }
+                });
+            alert("ErrorCode: " + errorCode + "\r" + "ErrorString:" + errorString);
+        }
+
+        function btnUpload_onclick() {
+            // var DWObject = Dynamsoft.WebTwainEnv.GetWebTwain('dwtcontrolContainer');
+            if (DWObject) {
+                let currentIndex = DWObject.CapCurrentIndex;
+                let listindex = [];
+
+                document.getElementById('scan_upload').style.display='flex'
+                document.getElementById('center_success').style.display='none'
+
+                for (var i = 0; i < DWObject.HowManyImagesInBuffer; i++) {
+                    listindex.push(i)
+                }
+                if(listindex.length>0){
+                    DWObject.ConvertToBlob(listindex, EnumDWT_ImageType.IT_PDF, asyncSuccessFunc,
+                        asyncFailureFunc);
+                }else{
+                    document.getElementById('scan_upload').style.display='none'
+                    document.getElementById('center_success').style.display='flex'
+                }
+                // console.log(currentIndex)
+                // DWObject.ConvertToBlob(listindex, EnumDWT_ImageType.IT_PDF, asyncSuccessFunc,
+                //     asyncFailureFunc);
+
+            }
+
+        }
+       
 //--------------------------------------------------------------------------------------
 //************************** Dynamic Web TWAIN Events***********************************
 //--------------------------------------------------------------------------------------
@@ -732,9 +966,9 @@ function Dynamsoft_OnPostLoadfunction(path, name, type) {
 }
 
 function Dynamsoft_OnPostAllTransfers() {
+    
     DWObject.CloseSource();
-    updatePageInfo();
-    checkErrorString();
+    btnUpload_onclick();
 }
 
 function Dynamsoft_OnMouseClick(index) {

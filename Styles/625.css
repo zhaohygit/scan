@@ -7,12 +7,13 @@
     overflow: auto
 }
 #tb div{
+  float: left;
     width:20%;
     line-height: 30px;
     font-size:14px;
-font-family:PingFangSC-Regular;
-font-weight:400;
-color:rgba(0,0,0,0.7);
+    font-family:PingFangSC-Regular;
+    font-weight:400;
+    color:rgba(0,0,0,0.7);
 }
 #unrecognized{
     display: flex;
